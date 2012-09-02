@@ -29,7 +29,7 @@ $synved_shortcode_options = array(
 					'folder' => 'skin-slickpanel',
 					'style' => 'important',
 					'label' => __('SlickPanel Skin', 'synved-shortcode'), 
-					'tip' => __('Click the button to install the SlickPanel skin, get it <a target="_blank" href="http://synved.com/wordpress-beatiful-shortcodes/">here</a>.', 'synved-shortcode')
+					'tip' => __('Click the button to install the SlickPanel skin, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">here</a>.', 'synved-shortcode')
 				),
 				'custom_style' => array(
 					'type' => 'style',
@@ -51,7 +51,7 @@ function synved_shortcode_section_customize_look_tip($tip, $item)
 {
 	if (!synved_option_addon_installed('synved_shortcode', 'skin_slickpanel'))
 	{
-		$tip .= '<p style="font-size:120%;"><b>Want a slicker, more professional look for your shortcodes? Get the <a target="_blank" href="http://synved.com/wordpress-beatiful-shortcodes/">SlickPanel skin</a></b>!</p> <a target="_blank" href="http://synved.com/wordpress-beatiful-shortcodes/"><img src="' . synved_shortcode_path_uri() . '/image/skin-slickpanel.png" /></a>';
+		$tip .= '<p style="font-size:120%;"><b>Want a slicker, more professional look for your shortcodes? Get the <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">SlickPanel skin</a></b>!</p> <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/"><img src="' . synved_shortcode_path_uri() . '/image/skin-slickpanel.png" /></a>';
 	}
 	
 	return $tip;
