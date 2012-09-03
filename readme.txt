@@ -1,7 +1,7 @@
 === WordPress Shortcodes ===
 Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
-Tags: shortcode, tabs, UI, sections, accordions, layout, smart links, author cards, vcard, message boxes, icons, buttons, linkable content, plugin, image, Post, posts, seo, page, widget
+Tags: shortcode, tabs, UI, sections, accordions, layout, links, smart links, author cards, vcard, message boxes, icons, buttons, linkable content, plugin, image, Post, posts, seo, page, widget
 Requires at least: 3.1
 Tested up to: 3.4.1
 Stable tag: 1.4.7
