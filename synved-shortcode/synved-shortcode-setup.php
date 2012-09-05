@@ -264,6 +264,12 @@ function synved_shortcode_ajax_callback()
 				$response_html .= '
 <div class="synved-shortcode-edit-popup">';
 
+				if (!synved_option_addon_installed('synved_shortcode', 'skin_slickpanel'))
+				{
+					$response_html .= '
+<a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/" style=""><img align="center" src="' . $uri . '/image/skin-slickpanel-thin.png" style="clear:both;margin-top:5px;border:solid 1px #aaa;"/></a>';
+				}
+
 				$response_html .= '<h3 class="popup-title">' . __('Select your shortcode, edit it, preview it and confirm when you\'re done!', 'synved-shortcode') . '</h3>';
 				$response_html .= '
 <form action="" method="post">
@@ -421,6 +427,17 @@ function synved_shortcode_ajax_callback()
 <div class="synved-shortcode-edit-actions">';
 
 				$response_html .= '<button class="action-confirm button-primary">' . __('Confirm and add shortcode', 'synved-shortcode') . '</button>';
+
+				$response_html .= '
+<div style="float:right"><a target="_blank" href="http://synved.com/wordpress-shortcodes/">WordPress Shortcodes</a> by <a target="_blank" href="http://synved.com">Synved</a>';
+
+				if (!synved_option_addon_installed('synved_shortcode', 'skin_slickpanel'))
+				{
+					$response_html .= ' &raquo; <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">BE SLICK AND SUPPORT US!</a> &laquo;';
+				}
+				
+				$response_html .= '
+</div>';
 
 				$response_html .= '
 </div>';

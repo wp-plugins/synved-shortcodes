@@ -1,10 +1,10 @@
 === WordPress Shortcodes ===
 Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
-Tags: shortcode, tabs, UI, sections, accordions, layout, links, smart links, author cards, vcard, message boxes, icons, buttons, linkable content, plugin, image, Post, posts, seo, page, widget
+Tags: shortcode, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
 Requires at least: 3.1
 Tested up to: 3.4.1
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,10 +31,10 @@ There are many different kinds of elements that cover for all your requirements.
 * Layout shortcodes allows for easy content organization
 * Links shortcodes make importing and exporting content across sites much more reliable
 * Many parameters for ultimate customizations
-* All parameters are documented in details in the shortcode editor
+* All parameters are documented in detail in the shortcode editor
 * Many useful lightweight icons provided built-in
 * Easy to tweak the look with built-in custom CSS field
-* Optional slick and professional skin available
+* Optional slick and [professional skin available](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 
 
 = Related Links: =
@@ -62,12 +62,18 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 1. An example of creating tabs with the shortcodes
 2. An example of creating sections with the shortcodes
 3. An example of creating message boxes with the shortcodes
-4. How the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!") will transform the look of the shortcodes
-5. This is the Shortcodes Editor that pops up in the edit post interface
-6. Another example of the Shortcodes Editor 
-7. Another example of the Shortcodes Editor with the full list of shortcodes
+4. An example of a user link shortcode customized as an author card or "vcard"
+5. Same as the above but using the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
+6. How the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!") will transform the look of the shortcodes
+7. This is the Shortcodes Editor that pops up in the edit post interface
+8. Another example of the Shortcodes Editor 
+9. Another example of the Shortcodes Editor with the full list of shortcodes
 
 == Changelog ==
+
+= 1.4.8 =
+* Fixed problem with layouts extend option not working properly
+* Added some more screenshots
 
 = 1.4.7 =
 * First public release.

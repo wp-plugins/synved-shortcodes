@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.4.7
+Version: 1.4.8
 Author URI: http://synved.com/
 
 LEGAL STATEMENTS
@@ -22,8 +22,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100040007);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.4.7');
+define('SYNVED_SHORTCODE_VERSION', 100040008);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.4.8');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -803,7 +803,7 @@ function synved_shortcode_do_column($atts, $content = null, $code = '', $type = 
 	
 	if ($atts['extend'] == 'yes')
 	{
-		$class .= ' column-extend';
+		$class .= ' synved-column-extend';
 	}
 	
 	if ($flow != 'none')
@@ -950,7 +950,7 @@ function synved_shortcode_do_link($atts, $content = null, $code = '', $type = nu
 	$abstract = $item['abstract'];
 	$class = $item['class'];
 	$object = $item['object'];
-	$body = do_shortcode($content);
+	$body = trim(do_shortcode($content));
 	
 	if ($link != null || $body != null)
 	{
