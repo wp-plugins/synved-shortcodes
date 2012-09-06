@@ -4,7 +4,7 @@ Donate link: http://synved.com/wordpress-shortcodes/
 Tags: shortcode, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
 Requires at least: 3.1
 Tested up to: 3.4.1
-Stable tag: 1.4.8
+Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
