@@ -21,6 +21,8 @@ If you want to take it to the next level and hugely improve the appearance of th
 
 There are many different kinds of elements that cover for all your requirements. These include functionality for *User Interface creation*, *Layout management*, *Lists*, *Buttons*, *Message boxes*, *smart links* to easily link contents on your site without using full URLs but with IDs or names and a bunch of other useful tools.
 
+Just use the intuitive shortcode editor to create a message box, error box or warning message on your site. Or create multi-column layouts, a fancy button, a highly stylized link card, a list of items with icons (like a feature list), or combine multiple nested shortcodes to create for instance a list of links or a list of buttons and much more.
+
 = Features =
 * 20+ shortcodes and different elements!
 * Create tabs, sections, layout, lists, links, buttons and more!
