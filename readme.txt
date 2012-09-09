@@ -3,7 +3,7 @@ Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
 Tags: shortcode, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
 Requires at least: 3.1
-Tested up to: 3.4.1
+Tested up to: 3.4.2
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,6 +36,18 @@ There are many different kinds of elements that cover for all your requirements.
 * Easy to tweak the look with built-in custom CSS field
 * Optional slick and [professional skin available](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 
+= Example Shortcodes =
+
+The following will create a list of links to various kinds of content on your site:
+`[list icon=link]
+  [item][link_post id=82 /][/item]
+  [item][link_post id=66 /][/item]
+  [item][link_page name="typography" /][/item]
+  [item][link_page id=27 /][/item]
+  [item][link_category slug="parent-category-iii" /][/item]
+  [item][link_media id=6229 /][/item]
+  [item][link_media title="Ice Pathway" /][/item]
+[/list]`
 
 = Related Links: =
 
