@@ -1,7 +1,7 @@
 === WordPress Shortcodes ===
 Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
-Tags: shortcode, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
+Tags: shortcode, shortcodes, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
 Requires at least: 3.1
 Tested up to: 3.4.2
 Stable tag: trunk
@@ -55,6 +55,7 @@ The following will create a list of links to various kinds of content on your si
 
 * [WordPress Shortcodes Official Page](http://synved.com/wordpress-shortcodes/ "WordPress Shortcodes – beautiful elements to spice up your site")
 * [SlickPanel skin to make the elements look more professional](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!")
+* [List of icons usable in shortcodes like buttons and lists](http://synved.com/blog/help/tutorials/wordpress-shortcodes-icons/)
 * [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio/) where you can see some of the shortcodes in action
 * [The free Stripefolio theme](http://synved.com/stripefolio-free-wordpress-portfolio-theme/ "A free WordPress theme that serves as a readable blog and a full-screen portfolio showcase") the Official page for the theme in the above demo link
 
