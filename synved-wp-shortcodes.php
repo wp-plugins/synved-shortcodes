@@ -9,11 +9,6 @@ Author URI: http://www.synved.com/
 
 LEGAL STATEMENTS
 
-COPYRIGHT
-All documents, text, questions, references, images, audio, programs, source code or other materials whatsoever contained in, or supplied are protected by copyright of the respective copyright holders.
-
-Except as explicitly allowed under each specific copyright or license, these materials may not be reproduced in whole or in part, in any form or by any means, including photocopy, electronic storage and retrieval, or translation into any other language without the express written consent of the copyright holder.
-
 NO WARRANTY
 All products, support, services, information and software are provided "as is" without warranty of any kind, express or implied, including, but not limited to, the implied warranties of fitness for a particular purpose, and non-infringement.
 

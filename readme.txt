@@ -1,7 +1,7 @@
 === WordPress Shortcodes ===
 Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
-Tags: shortcode, shortcodes, tabs, UI, sections, accordions, layout, links, permalink, time, smart links, author, author cards, vcard, message boxes, icons, button, free, linkable content, plugin, image, edit, manage, Post, posts, image, Taxonomy, user, Style, seo, page, widget, administration
+Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, permalink, permalinks, time, author, vcard, box, boxes, icons, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks
 Requires at least: 3.1
 Tested up to: 3.4.2
 Stable tag: trunk
@@ -25,17 +25,19 @@ Just use the intuitive shortcode editor to create a message box, error box or wa
 
 = Features =
 * 20+ shortcodes and different elements!
-* Create tabs, sections, layout, lists, links, buttons and more!
+* Create tabs, sections/accordions, layout, lists, links, buttons and more!
 * Tabs are SEO friendly and work flawlessly without JavaScript!
 * Fully WordPress compliant, using latest standards
-* Quick and easy to use shortcode editor with previews
+* Quick and easy to use shortcode editor **with instant previews**
 * Shortcode editor allows for easy insertion in posts/pages!
-* Layout shortcodes allows for easy content organization
-* Links shortcodes make importing and exporting content across sites much more reliable
-* Many parameters for ultimate customizations
+* Layout shortcodes allow for tight content organization
+* Link shortcodes make importing and exporting content across sites much more reliable
+* Link shortcodes support a simple to use but *powerful template system* to tweak what is displayed and how it looks
+* The custom template system makes it extremely easy to create custom **author and post cards** with thumbnails
+* Many parameters for ultimate customization
 * All parameters are documented in detail in the shortcode editor
 * Many useful lightweight icons provided built-in
-* Easy to tweak the look with built-in custom CSS field
+* Easy to adjust the look of shortcodes with built-in custom CSS field
 * Optional slick and [professional skin available](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 
 = Example Shortcodes =
@@ -74,9 +76,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Screenshots ==
 
-1. An example of creating tabs with the shortcodes
-2. An example of creating sections with the shortcodes
-3. An example of creating message boxes with the shortcodes
+1. An example of creating tabs with the shortcodes and the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
+2. An example of creating sections with the shortcodes and the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
+3. An example of creating message boxes with the shortcodes and the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 4. An example of a user link shortcode customized as an author card or "vcard"
 5. Same as the above but using the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 6. How the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!") will transform the look of the shortcodes
