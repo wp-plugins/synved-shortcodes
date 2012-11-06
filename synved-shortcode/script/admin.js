@@ -35,17 +35,33 @@ if (jQuery(document).insertAtCaret == undefined)
 
 var SynvedShortcode = {
 	
+	doingRequest : false,
 	oldShortcode : null,
+	oldPreset : null,
 	previewTimer : null,
 	
 	reset: function ()
 	{
 		this.oldShortcode = null;
+		this.oldPreset = null;
 		this.previewTimer = null;
+	},
+	
+	_log: function (obj)
+	{
+		if (typeof(console) !== undefined)
+		{
+			console.log(obj);
+		}
 	},
 	
 	performRequest: function (action, params) 
 	{
+		if (this.doingRequest)
+			return;
+			
+		this.doingRequest = true;
+		
 		if (params == undefined || params == null) 
 		{
 			params = {}
@@ -59,13 +75,16 @@ var SynvedShortcode = {
 					action : 'synved_shortcode',
 					synvedSecurity : SynvedShortcodeVars.synvedSecurity,
 					synvedAction : action,
-					synvedParams : params
+					synvedParams : params,
+					synvedPost : SynvedShortcodeVars.currentPost
 				},
 				success : function( response ) {
 					SynvedShortcode.actionStarted(action, params, response, this);
+					SynvedShortcode.doingRequest = false;
 				},
 				error : function( jqXHR, textStatus, errorThrown ) {
 					SynvedShortcode.actionFailed(action, params, errorThrown, this);
+					SynvedShortcode.doingRequest = false;
 				}
 			}
 		);
@@ -91,9 +110,18 @@ var SynvedShortcode = {
 				tbCont.css({ height : '100%' });
 				tbCont.innerWidth(tbCont.parent().width());
 				
+				if (response == null || response == '-1' || response.length < 4)
+				{
+					response = '<div style="font-size:12pt;font-weight:bold;margin:10px;">Session expired, please reload the page.</div>';
+				}
+				
 				tbCont.html(response);
 				
-				tbCont.find('[name=synved_shortcode_list]').change(function (e) {
+				tbCont.find('[name=synved_shortcode_list]').chosen().change(function (e) {
+					SynvedShortcode.updatePreview();
+				});
+				
+				tbCont.find('[name=synved_preset_list]').chosen().change(function (e) {
 					SynvedShortcode.updatePreview();
 				});
 				
@@ -151,30 +179,85 @@ var SynvedShortcode = {
 	
 	updatePreview: function (isInit)
 	{
-		var tb = jQuery("#TB_window");
+		var tb = jQuery('#TB_window');
 		var select = tb.find('[name=synved_shortcode_list]');
+		var presets = tb.find('[name=synved_preset_list]');
 		var code = tb.find('[name=synved_shortcode_code]');
 		var current = select.val();
+		var currentCode = code.val();
+		var currentPreset = presets.val();
 		
-		if (this.oldShortcode)
+		this._log(this.oldShortcode);
+		this._log(current);
+		this._log(this.oldPreset);
+		this._log(currentPreset);
+		
+		if (this.oldShortcode == current && this.oldPreset == currentPreset)
 		{
-			var oldElem = tb.find('[name=shortcode_content\\[' + this.oldShortcode + '\\]]');
-			oldElem.val(code.val());
+			var presetsContents = presets.find('option');
+			var presetDefault = presetsContents.filter('[value="default"]');
+			var presetMatch = null;
+			
+			if (presetDefault.size() > 0 && presetDefault.attr('data-content') == currentCode)
+			{
+				presetMatch = presetDefault.val();
+			}
+			else
+			{
+				presetsContents.each(function () {
+					var jt = jQuery(this);
+				
+					if (jt.attr('data-content') == currentCode)
+						presetMatch = jt.val();
+				});
+			}
+			
+			this._log(presetMatch);
+			
+			if (presetMatch == null)
+			{
+				presetMatch = 'custom';
+			}
+			
+			if (presetMatch == 'custom')
+			{
+				presets.find('option[value="' + presetMatch + '"]').attr('data-content', currentCode);
+				presets.trigger('liszt:updated');
+			}
+			
+			if (presetMatch != currentPreset)
+			{
+				this.oldPreset = currentPreset = presetMatch;
+				
+				presets.val(presetMatch);
+				presets.trigger('liszt:updated');
+			}
 		}
 		
 		if (this.oldShortcode != current)
 		{
-			var elem = tb.find('[name=shortcode_content\\[' + current + '\\]]');
-			code.val(elem.val());
+			var oldElem = tb.find('[name=shortcode_preset\\[' + this.oldShortcode + '\\]]');
+			var elem = tb.find('[name=shortcode_preset\\[' + current + '\\]]');
+			
+			oldElem.empty().append(presets.children().clone());
+			presets.empty().append(elem.children().clone()).trigger('liszt:updated');
+			
+			this.oldPreset = null;
+			currentPreset = presets.val();
 			
 			var helpItem = tb.find('.synved-shortcode-help #synved-shortcode-help-item-' + current);
-			//if (helpItem.size() > 0) 
-			{
-				tb.find('.ui-help-wrap .ui-help').html(helpItem.clone());
-			}
+			tb.find('.ui-help-wrap .ui-help').html(helpItem.clone());
+		}
+		
+		if (this.oldPreset != currentPreset)
+		{
+			var presetElem = presets.find('option[value="' + currentPreset + '"]');
+			var presetContent = presetElem.attr('data-content');
+			code.val(presetContent);
 		}
 	
 		this.oldShortcode = current;
+		this.oldPreset = currentPreset;
 		
 		var elems = tb.find('form').serializeArray();
 		var items = {};

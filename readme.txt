@@ -23,16 +23,19 @@ There are many different kinds of elements that cover for all your requirements.
 
 Just use the intuitive shortcode editor to create a message box, error box or warning message on your site. Or create multi-column layouts, a fancy button, a highly stylized link card, a list of items with icons (like a feature list), or combine multiple nested shortcodes to create for instance a list of links or a list of buttons and much more.
 
+The shortcode editor presents a very intuitive and easy to use interface, with many built-in presets that make inserting many commonly needed default shortcodes in your posts/pages a breeze! If you want you can also get [over 30+ extra useful amazing presets](http://synved.com/product/wordpress-shortcodes-extra-presets/) for covering almost all needs.
+
 = Features =
 * 20+ shortcodes and different elements!
 * Create tabs, sections/accordions, layout, lists, links, buttons and more!
-* Tabs are SEO friendly and work flawlessly without JavaScript!
+* Tabs are **SEO friendly** and work flawlessly without JavaScript!
 * Fully WordPress compliant, using latest standards
 * Quick and easy to use shortcode editor **with instant previews**
 * Shortcode editor allows for easy insertion in posts/pages!
+* The shortcode editor has full support for default presets and you can get [many extra useful presets](http://synved.com/product/wordpress-shortcodes-extra-presets/)
 * Layout shortcodes allow for tight content organization
 * Link shortcodes make importing and exporting content across sites much more reliable
-* Link shortcodes support a simple to use but *powerful template system* to tweak what is displayed and how it looks
+* Links support a simple to use but *powerful template system* to tweak what is displayed and how it looks
 * The custom template system makes it extremely easy to create custom **author and post cards** with thumbnails
 * Many parameters for ultimate customization
 * All parameters are documented in detail in the shortcode editor
@@ -57,6 +60,7 @@ The following will create a list of links to various kinds of content on your si
 
 * [WordPress Shortcodes Official Page](http://synved.com/wordpress-shortcodes/ "WordPress Shortcodes – beautiful elements to spice up your site")
 * [SlickPanel skin to make the elements look more professional](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!")
+* [Extra presets addon provides many useful additional presets](http://synved.com/product/wordpress-shortcodes-extra-presets/)
 * [List of icons usable in shortcodes like buttons and lists](http://synved.com/blog/help/tutorials/wordpress-shortcodes-icons/)
 * [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio/) where you can see some of the shortcodes in action
 * [The free Stripefolio theme](http://synved.com/stripefolio-free-wordpress-portfolio-theme/ "A free WordPress theme that serves as a readable blog and a full-screen portfolio showcase") the Official page for the theme in the above demo link
@@ -84,9 +88,15 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 6. How the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!") will transform the look of the shortcodes
 7. This is the Shortcodes Editor that pops up in the edit post interface
 8. Another example of the Shortcodes Editor 
-9. Another example of the Shortcodes Editor with the full list of shortcodes
+9. Another example of the Shortcodes Editor with the full list of shortcodes (using the old interface)
+10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.5 =
+* Added Presets! Allowing for quick starting points and functionality demos
+* Fixed a few small bugs and issues
+* Added more parameters to a few shortcodes
 
 = 1.4.8 =
 * Fixed problem with layouts extend option not working properly

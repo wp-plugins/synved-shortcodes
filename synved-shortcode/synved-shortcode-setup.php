@@ -27,9 +27,17 @@ $synved_shortcode_options = array(
 					'type' => 'addon',
 					'target' => SYNVED_SHORTCODE_ADDON_PATH,
 					'folder' => 'skin-slickpanel',
-					'style' => 'important',
+					'style' => 'addon-important',
 					'label' => __('SlickPanel Skin', 'synved-shortcode'), 
-					'tip' => __('Click the button to install the SlickPanel skin, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">here</a>.', 'synved-shortcode')
+					'tip' => synved_option_callback('synved_shortcode_option_skin_slickpanel_tip', __('Click the button to install the SlickPanel skin, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">here</a>.', 'synved-shortcode'))
+				),
+				'addon_extra_presets' => array(
+					'type' => 'addon',
+					'target' => SYNVED_SHORTCODE_ADDON_PATH,
+					'folder' => 'extra-presets',
+					'style' => 'addon-important',
+					'label' => __('Extra Presets', 'synved-shortcode'), 
+					'tip' => synved_option_callback('synved_shortcode_option_addon_extra_presets_tip', __('Click the button to install the "Extra Presets" addon, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-extra-presets/">here</a>.', 'synved-shortcode'))
 				),
 				'custom_style' => array(
 					'type' => 'style',
@@ -72,6 +80,26 @@ function synved_shortcode_custom_skin_set($set, $item)
 	return $set;
 }
 
+function synved_shortcode_option_skin_slickpanel_tip($tip, $item)
+{
+	if (synved_option_addon_installed('synved_shortcode', 'skin_slickpanel'))
+	{
+		$tip .= ' <span style="background:#eee;padding:5px 8px;">' . __('SlickPanel is already installed! You can use the button to re-install it.', 'synved-shortcode') . '</span>';
+	}
+	
+	return $tip;
+}
+
+function synved_shortcode_option_addon_extra_presets_tip($tip, $item)
+{
+	if (synved_option_addon_installed('synved_shortcode', 'addon_extra_presets'))
+	{
+		$tip .= ' <span style="background:#eee;padding:5px 8px;">' . __('The "Extra Presets" addon is already installed! You can use the button to re-install it.', 'synved-shortcode') . '</span>';
+	}
+	
+	return $tip;
+}
+
 function synved_shortcode_path_uri($path = null)
 {
 	$uri = plugins_url('/synved-shortcodes') . '/synved-shortcode';
@@ -110,9 +138,6 @@ function synved_shortcode_wp_register_common_scripts()
 	wp_register_script('jquery-unselectable', $uri . '/script/jquery-unselectable.js', array('jquery'), '1.0.0');
 	wp_register_script('jquery-babbq', $uri . '/script/jquery.ba-bbq.min.js', array('jquery'), '1.2.1');
 	wp_register_script('jquery-scrolltab', $uri . '/script/jquery.scrolltab.js', array('jquery'), '1.0');
-	wp_register_script('jquery-ui-accordion', $uri . '/script/ui/jquery.ui.accordion.min.js', array('jquery-ui-widget'), '1.8.16');
-	wp_register_script('jquery-ui-button', $uri . '/script/ui/jquery.ui.button.min.js', array('jquery-ui-widget'), '1.8.16');
-	wp_register_script('jquery-ui-slider', $uri . '/script/ui/jquery.ui.slider.min.js', array('jquery-ui-widget'), '1.8.16');
 	wp_register_script('synved-shortcode-base', $uri . '/script/base.js', array('jquery-babbq', 'jquery-scrolltab', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-button', 'jquery-unselectable', 'jquery-ui-slider'), '1.0');
 }
 
@@ -141,13 +166,16 @@ function synved_shortcode_admin_enqueue_scripts()
 	
 	synved_shortcode_wp_register_common_scripts();
 	
-	wp_register_style('synved-shortcode-admin', $uri . '/style/admin.css', array('jquery-ui', 'thickbox', 'wp-pointer', 'wp-jquery-ui-dialog'), '1.0');
-	
+	wp_register_script('jquery-chosen', $uri . '/chosen/chosen.jquery.js', array('jquery'), '0.9.8');
 	wp_register_script('synved-shortcode-script-admin', $uri . '/script/admin.js', array('synved-shortcode-base', 'jquery', 'suggest', 'media-upload', 'thickbox', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-dialog'), '1.0.0');
-	wp_localize_script('synved-shortcode-script-admin', 'SynvedShortcodeVars', array('flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'), 'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'), 'ajaxurl' => admin_url('admin-ajax.php'), 'synvedSecurity' => wp_create_nonce('synved-shortcode-submit-nonce'), 'mainUri' => $uri));
+	wp_localize_script('synved-shortcode-script-admin', 'SynvedShortcodeVars', array('flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'), 'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'), 'ajaxurl' => admin_url('admin-ajax.php'), 'synvedSecurity' => wp_create_nonce('synved-shortcode-submit-nonce'), 'mainUri' => $uri, 'currentPost' => (isset($_GET['post']) ? $_GET['post'] : 0)));
+	
+	wp_register_style('synved-shortcode-admin', $uri . '/style/admin.css', array('jquery-ui', 'thickbox', 'wp-pointer', 'wp-jquery-ui-dialog'), '1.0');
+	wp_register_style('jquery-chosen', $uri . '/chosen/chosen.css', false, '0.9.8');
 	
 	wp_enqueue_style('jquery-ui');
 	wp_enqueue_style('farbtastic');
+	wp_enqueue_style('jquery-chosen');
 	wp_enqueue_style('synved-shortcode-layout');
 	wp_enqueue_style('synved-shortcode-jquery-ui');
 	wp_enqueue_style('synved-shortcode-admin');
@@ -157,6 +185,7 @@ function synved_shortcode_admin_enqueue_scripts()
 	wp_enqueue_script('suggest');
 	wp_enqueue_script('thickbox');
 	wp_enqueue_script('farbtastic');
+	wp_enqueue_script('jquery-chosen');
 	wp_enqueue_script('synved-shortcode-script-admin');
 }
 
@@ -281,21 +310,48 @@ function synved_shortcode_ajax_callback()
 				
 				$response_html .= '
 <div class="synved-shortcode-edit-ui-selector">
-<select name="synved_shortcode_list">';
+<div class="selector-item" style="float:left;">
+<div class="selector-label" style="float:left;margin-top:3px;margin-right:8px;">
+<label for="synved_shortcode_list">' . __('Shortcode', 'synved-shortcode') . ':</label>
+</div>
+<select name="synved_shortcode_list" id="synved_shortcode_list">';
+
+				$list_html = array();
+				$group_labels = array();
 
 				foreach ($list as $shortcode_name => $shortcode_item)
 				{
 					$name_alt = $shortcode_item['name_alt'];
 					$label = $shortcode_item['label'];
+					$group = $shortcode_item['group'];
 					$callback = $shortcode_item['callback'];
 					$internal = $shortcode_item['internal'];
 					$default = $shortcode_item['default'];
 					$help = $shortcode_item['help'];
+					$presets = $shortcode_item['preset_list'];
 					
 					if ($internal == false)
 					{
 						$tip = null;
 						$args = null;
+						$group_name = null;
+						$group_label = null;
+						
+						if ($group != null)
+						{
+							if (is_array($group))
+							{
+								$group_name = isset($group['name']) ? $group['name'] : null;
+								$group_label = isset($group['label']) ? $group['label'] : null;
+							}
+							else
+							{
+								$group_name = $group;
+								$group_label = synved_shortcode_item_label_create($group_name);
+							}
+							
+							$group_labels[$group_name] = $group_label;
+						}
 							
 						if ($help != null)
 						{
@@ -348,17 +404,169 @@ function synved_shortcode_ajax_callback()
 						
 						$title = $tip != null ? (' title="' . esc_attr($tip) . '"') : null;
 						
-						$response_html .= '
+						$list_html[$group_name] .= '
 <option value="' . esc_attr($shortcode_name) . '"' . $title . '>' . $label . '</option>';
+					
+						$extra_fields .= '
+<select name="shortcode_preset[' . esc_attr($shortcode_name) . ']">';
 						
 						$extra_fields .= '
-<input type="hidden" name="shortcode_content[' . esc_attr($shortcode_name) . ']" value="' . esc_attr($default) . '" />';
+<option selected="selected" value="' . esc_attr('default') . '" data-content="' . esc_attr($default) . '" title="' . esc_attr(__('The default preset', 'synved-shortcode')) . '">' . esc_attr(__('Default', 'synved-shortcode')) . '</option>';
+
+						if ($presets != null)
+						{
+							$preset_list_html = array();
+							$preset_group_labels = array();
+							
+							foreach ($presets as $preset_name => $preset)
+							{
+								$preset_label = $preset['label'];
+								$preset_group = $preset['group'];
+								$preset_tip = $preset['tip'];
+								$preset_content = $preset['content'];
+								
+								$preset_group_name = null;
+								$preset_group_label = null;
 						
+								if ($preset_group != null)
+								{
+									if (is_array($preset_group))
+									{
+										$preset_group_name = isset($preset_group['name']) ? $preset_group['name'] : null;
+										$preset_group_label = isset($preset_group['label']) ? $preset_group['label'] : null;
+									}
+									else
+									{
+										$preset_group_name = $preset_group;
+										$preset_group_label = synved_shortcode_item_label_create($preset_group_name);
+									}
+							
+									$preset_group_labels[$preset_group_name] = $preset_group_label;
+								}
+								
+								if ($preset_label == null)
+								{
+									$preset_label = synved_shortcode_item_label_create($preset_name);
+								}
+								
+								if ($preset_tip != null)
+								{
+									$preset_tip = ' title="' . esc_attr($preset_tip) . '"';
+								}
+								
+								$preset_list_html[$preset_group_name] .= '
+<option value="' . esc_attr($preset_name) . '" data-content="' . esc_attr($preset_content) . '"' . $preset_tip . '>' . $preset_label . '</option>';
+								
+							}
+				
+							if (isset($preset_list_html[null]))
+							{
+								$preset_list_html_keys = array_keys($preset_list_html);
+								$preset_list_html_values = array_values($preset_list_html);
+					
+								$preset_list_html_index = array_search(null, $preset_list_html_keys);
+					
+								if ($preset_list_html_index !== false && $preset_list_html_index > 0)
+								{
+									$preset_list_html_value = $preset_list_html_values[$preset_list_html_index];
+						
+									unset($preset_list_html_keys[$preset_list_html_index]);
+									unset($preset_list_html_values[$preset_list_html_index]);
+						
+									array_unshift($preset_list_html_keys, null);
+									array_unshift($preset_list_html_values, $preset_list_html_value);
+						
+									$preset_list_html = array_combine($preset_list_html_keys, $preset_list_html_values);
+								}
+							}
+							
+							foreach ($preset_list_html as $preset_group_name => $preset_item_html)
+							{
+								if ($preset_group_name != null)
+								{
+									$extra_fields .= '
+<optgroup label="' . $preset_group_labels[$preset_group_name] . '">';
+								}
+					
+								$extra_fields .= $preset_item_html;
+					
+								if ($preset_group_name != null)
+								{
+									$extra_fields .= '
+</optgroup>';
+								}
+							}
+						}
+						
+//<optgroup label="' . __('Custom', 'synved-shortcode') . '">
+						$extra_fields .= '
+<option value="custom" data-content="' . esc_attr($default) . '" title="' . esc_attr(__('The custom preset, holds the temporarily customized shortcode code', 'synved-shortcode')) . '">' . esc_attr(__('<Custom>', 'synved-shortcode')) . '</option>';
+//</optgroup>
+							
+						$extra_fields .= '
+</select>';
+					}
+				}
+				
+				if (isset($list_html[null]))
+				{
+					$list_html_keys = array_keys($list_html);
+					$list_html_values = array_values($list_html);
+					
+					$list_html_index = array_search(null, $list_html_keys);
+					
+					if ($list_html_index !== false && $list_html_index > 0)
+					{
+						$list_html_value = $list_html_values[$list_html_index];
+						
+						unset($list_html_keys[$list_html_index]);
+						unset($list_html_values[$list_html_index]);
+						
+						array_unshift($list_html_keys, null);
+						array_unshift($list_html_values, $list_html_value);
+						
+						$list_html = array_combine($list_html_keys, $list_html_values);
+					}
+				}
+				
+				foreach ($list_html as $group_name => $shortcode_item_html)
+				{
+					if ($group_name != null)
+					{
+						$response_html .= '
+<optgroup label="' . $group_labels[$group_name] . '">';
+					}
+					
+					$response_html .= $shortcode_item_html;
+					
+					if ($group_name != null)
+					{
+						$response_html .= '
+</optgroup>';
 					}
 				}
 
 				$response_html .= '
-</select> &lt;-- <span class="ui-message">' . __('Select the type of shortcode on the left', 'synved-shortcode') . '</span>' . $extra_fields . '
+</select>
+<div class="shortcode-extra-fields" style="display:none">' . $extra_fields . '</div>
+</div>
+<div class="selector-item" style="float:right;">
+<div class="selector-label" style="float:left;margin-top:3px;margin-right:8px;">
+<label for="synved_preset_list">' . __('Preset', 'synved-shortcode') . ':</label>
+</div>
+<select name="synved_preset_list" id="synved_preset_list">
+</select>';
+
+				if (!synved_option_addon_installed('synved_shortcode', 'addon_extra_presets'))
+				{
+					$response_html .= '
+<a target="_blank" href="http://synved.com/product/wordpress-shortcodes-extra-presets/" style="display:block;text-align:center;font-weight:bold;">GET 30+ EXTRA AMAZING PRESETS!</a>';
+				}
+
+				$response_html .= '
+</div>
+<div style="clear:both">
+</div>
 </div>';
 
 				$response_html .= '
@@ -455,8 +663,9 @@ function synved_shortcode_ajax_callback()
 			{
 				$code = isset($params['code']) ? $params['code'] : null;
 				
-				if (get_magic_quotes_gpc() || get_magic_quotes_runtime() || true) {
-						$code = stripslashes($code);
+				if (get_magic_quotes_gpc() || get_magic_quotes_runtime() || true) 
+				{
+					$code = stripslashes($code);
 				}
 				
 				$response_html = do_shortcode($code);
@@ -495,6 +704,69 @@ function synved_shortcode_ajax_callback()
 
 function synved_shortcode_init()
 {
+	$object_list = array();
+	
+	if (is_admin())
+	{
+		$exclude_list = array();
+		
+		if (isset($_POST['synvedPost']))
+		{
+			$synved_post = (int) $_POST['synvedPost'];
+			
+			if ($synved_post > 0)
+			{
+				$exclude_list[] = $synved_post;
+			}
+		}
+		
+		if (isset($_GET['post']))
+		{
+			$synved_post = (int) $_GET['post'];
+			
+			if ($synved_post > 0 && array_search($synved_post, $exclude_list) === false)
+			{
+				$exclude_list[] = $synved_post;
+			}
+		}
+		
+		$args = array('numberposts' => 1, 'orderby' => 'random', 'exclude' => $exclude_list);
+		$args['post_type'] = 'post';
+		$posts = get_posts($args);
+		$post = $posts != null ? $posts[0] : null;
+		
+		$args['post_type'] = 'post';
+		if ($post != null)
+		{
+			$args['exclude'][] = $post->ID;
+		}
+		$posts = get_posts($args);
+		$post2 = $posts != null ? $posts[0] : null;
+		
+		$args['post_type'] = 'page';
+		$posts = get_posts($args);
+		$page = $posts != null ? $posts[0] : null;
+		
+		$args['post_type'] = 'attachment';
+		$args['post_status'] = null;
+		$posts = get_posts($args);
+		$media = $posts != null ? $posts[0] : null;
+		
+		$object_list['post'] = $post;
+		$object_list['post-2'] = $post2;
+		$object_list['page'] = $page;
+		$object_list['media'] = $media;
+	}
+	
+	synved_shortcode_register_list();
+	
+	synved_shortcode_register_presets($object_list);
+	
+	if (function_exists('synved_shortcode_addon_extra_presets_register'))
+	{
+		synved_shortcode_addon_extra_presets_register($object_list);
+	}
+	
 	if (current_user_can('edit_posts') || current_user_can('edit_pages'))
 	{
 		if (get_user_option('rich_editing') == 'true')
@@ -514,6 +786,7 @@ function synved_shortcode_init()
 	if (synved_option_get('synved_shortcode', 'shortcode_feed'))
 	{
 		add_filter('the_content_feed', 'do_shortcode', $priority);
+		add_filter('the_excerpt_rss', 'do_shortcode', $priority);
 	}
 	
   add_action('wp_ajax_synved_shortcode', 'synved_shortcode_ajax_callback');

@@ -1,5 +1,13 @@
-.synved-option-style-important {
+.synved-option-type-addon .description {
+line-height:26px;
+}
+
+.synved-option-style-important,
+.synved-option-style-addon-important {
 background-color:#ffe4e0;
+}
+.synved-option-style-addon-important-installed {
+background-color:#e0ffe4;
 }
 .synved-option-important th {
 }

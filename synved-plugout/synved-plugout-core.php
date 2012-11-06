@@ -326,20 +326,24 @@ function synved_plugout_module_addon_scan_path($path, $filter = null)
 	{
 		$list = glob($path . '*', GLOB_ONLYDIR);
 		$addon_list = array();
+		$filter_regex = '/' . str_replace(array('*'), array('.*'), $filter) . '/';
 		
-		foreach ($list as $addon_dir)
+		if ($list != null)
 		{
-			$path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $addon_dir);
-			$path = rtrim($path, DIRECTORY_SEPARATOR);
-			$base = basename($addon_dir);
-			
-			if (fnmatch($filter, $base))
+			foreach ($list as $addon_dir)
 			{
-				$filename = $addon_dir . DIRECTORY_SEPARATOR . $base . '.php';
+				$path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $addon_dir);
+				$path = rtrim($path, DIRECTORY_SEPARATOR);
+				$base = basename($addon_dir);
 			
-				if (file_exists($filename))
+				if (preg_match($filter_regex, $base))
 				{
-					$addon_list[$base] = $filename;
+					$filename = $addon_dir . DIRECTORY_SEPARATOR . $base . '.php';
+			
+					if (file_exists($filename))
+					{
+						$addon_list[$base] = $filename;
+					}
 				}
 			}
 		}

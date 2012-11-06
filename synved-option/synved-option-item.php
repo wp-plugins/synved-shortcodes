@@ -177,17 +177,6 @@ function synved_option_item_hidden(array $item)
 {
 	$hidden = isset($item['hidden']) ? $item['hidden'] : null;
 	
-	// XXX exception
-	if ($hidden === null)
-	{
-		$type = synved_option_item_type($item);
-		
-		if ($type == 'addon')
-		{
-			$hidden = synved_option_item_addon_is_installed($item);
-		}
-	}
-	
 	if ($hidden instanceof SynvedOptionCallback)
 	{
 		$hidden = $hidden->Invoke(array(null, $item));
@@ -474,17 +463,17 @@ function synved_option_item_callback(array $item, $callback_id, $callback_parame
 
 function synved_option_item_validate(array $item)
 {
-	return synved_option_item_callback($item, 'validate', '$value, $name, $id');
+	return synved_option_item_callback($item, 'validate', '$value, $name, $id, $item');
 }
 
 function synved_option_item_sanitize(array $item)
 {
-	return synved_option_item_callback($item, 'sanitize', '$value, $name, $id');
+	return synved_option_item_callback($item, 'sanitize', '$value, $name, $id, $item');
 }
 
 function synved_option_item_sanitize_raw(array $item)
 {
-	return synved_option_item_callback($item, 'sanitize-raw', '$value, $name, $id');
+	return synved_option_item_callback($item, 'sanitize-raw', '$value, $name, $id, $item');
 }
 
 function synved_option_item_set_check_value(array $item, $set, $value)

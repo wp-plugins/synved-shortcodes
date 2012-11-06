@@ -12,12 +12,26 @@ margin-bottom:10px;
 .synved-shortcode-edit-ui-selector {
 background:#f4f4f4;
 font-size:110%;
-padding:7px;
+color:#555;
+padding:10px 10px 8px 10px;
 border-radius:8px;
+}
+.synved-shortcode-edit-ui-selector select {
+height:25px;
+line-height:25px;
+padding:0;
+margin:0;
+width:280px;
+}
+.synved-shortcode-edit-ui-selector .chzn-container-single .chzn-single span {
+line-height:22px;
+}
+.synved-shortcode-edit-ui-selector .chzn-search input {
+padding-left:0;
+padding-right:0;
 }
 .synved-shortcode-edit-ui-selector .ui-message {
 font-style:italic;
-color:#333;
 }
 .synved-shortcode-edit-ui-viewer {
 clear:both;
@@ -36,7 +50,7 @@ margin-bottom:8px;
 }
 .synved-shortcode-edit-ui-viewer .ui-code-wrap {
 float:left;
-width:40%;
+width:45%;
 }
 .synved-shortcode-edit-ui-viewer .ui-code-wrap textarea {
 width:100%;
@@ -44,7 +58,7 @@ height:200px;
 }
 .synved-shortcode-edit-ui-viewer .ui-preview-wrap {
 float:right;
-width:60%;
+width:55%;
 }
 .synved-shortcode-edit-ui-help {
 margin:15px 0;

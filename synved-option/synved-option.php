@@ -5,13 +5,9 @@ Description: Easily add options to your themes or plugins with as little or as m
 Author: Synved
 Version: 1.3.9
 Author URI: http://synved.com/
+License: GPLv2
 
 LEGAL STATEMENTS
-
-COPYRIGHT
-All documents, text, questions, references, images, audio, programs, source code or other materials whatsoever contained in, or supplied are protected by copyright of the respective copyright holders.
-
-Except as explicitly allowed under each specific copyright or license, these materials may not be reproduced in whole or in part, in any form or by any means, including photocopy, electronic storage and retrieval, or translation into any other language without the express written consent of the copyright holder.
 
 NO WARRANTY
 All products, support, services, information and software are provided "as is" without warranty of any kind, express or implied, including, but not limited to, the implied warranties of fitness for a particular purpose, and non-infringement.
@@ -122,6 +118,16 @@ class SynvedOptionCallback
 		
 		return $arguments[0];
 	}
+}
+
+function synved_option_version()
+{
+	return SYNVED_OPTION_VERSION;
+}
+
+function synved_option_version_string()
+{
+	return SYNVED_OPTION_VERSION_STRING;
 }
 
 function synved_option_callback($callback, $default = null, $callback_parameters = null)
@@ -315,16 +321,6 @@ function synved_option_callback_create($callback_code, $callback_parameters = nu
 	}
 	
 	return null;
-}
-
-function synved_option_version()
-{
-	return SYNVED_OPTION_VERSION;
-}
-
-function synved_option_version_string()
-{
-	return SYNVED_OPTION_VERSION_STRING;
 }
 
 function synved_option_register($id, array $options)
@@ -599,9 +595,11 @@ function synved_option_wp_handle_setting($id, $page, $section, $name, $item)
 	{
 		if ($sections != null)
 		{
+			$page_slug = synved_option_page_slug($id, $name, $item);
+			
 			foreach ($sections as $child_name => $child_item)
 			{
-				synved_option_wp_handle_setting($id, $name, null, $child_name, $child_item);
+				synved_option_wp_handle_setting($id, $page_slug, null, $child_name, $child_item);
 			}
 		}
 	}
@@ -832,11 +830,9 @@ function synved_option_admin_enqueue_scripts()
 {
 	$uri = synved_option_path_uri();
 	
-	wp_register_style('farbtastic', $uri . '/farbtastic/farbtastic.css', false, '1.3.1');
 	wp_register_style('jquery-ui', $uri . '/jqueryUI/css/custom/jquery-ui-1.8.11.custom.css', false, '1.8.11');
 	wp_register_style('synved-option-admin', $uri . '/style/admin.css', array('jquery-ui', 'wp-jquery-ui-dialog'), '1.0');
 	
-	wp_register_script('farbtastic', $uri . '/farbtastic/farbtastic.min.js', array('jquery'), '1.3.1');
 	wp_register_script('synved-option-script-custom', $uri . '/script/custom.js', array('jquery', 'suggest', 'media-upload', 'thickbox', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-dialog'), '1.0.0');
 	wp_localize_script('synved-option-script-custom', 'SynvedOptionVars', array('flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'), 'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'), 'ajaxurl' => admin_url('admin-ajax.php'), 'synvedSecurity' => wp_create_nonce('synved-option-submit-nonce')));
 	

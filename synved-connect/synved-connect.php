@@ -5,13 +5,9 @@ Description: Connect and sync components in a WordPress installation with a remo
 Author: Synved
 Version: 1.0
 Author URI: http://synved.com/
+License: GPLv2
 
 LEGAL STATEMENTS
-
-COPYRIGHT
-All documents, text, questions, references, images, audio, programs, source code or other materials whatsoever contained in, or supplied are protected by copyright of the respective copyright holders.
-
-Except as explicitly allowed under each specific copyright or license, these materials may not be reproduced in whole or in part, in any form or by any means, including photocopy, electronic storage and retrieval, or translation into any other language without the express written consent of the copyright holder.
 
 NO WARRANTY
 All products, support, services, information and software are provided "as is" without warranty of any kind, express or implied, including, but not limited to, the implied warranties of fitness for a particular purpose, and non-infringement.
@@ -101,7 +97,7 @@ function synved_connect_dashboard_widget()
 		update_option('synved_connect_install_date', time());
 	}
 	
-	if ($install_date != null && (time() - $install_date) >= 60 * 60 * 12)
+	//if ($install_date != null && (time() - $install_date) >= (60 * 60 * 6))
 	{
 		$sponsor_item = synved_connect_sponsor_item_pick(array('type' => 'intern|extern'));
 	
@@ -115,7 +111,7 @@ function synved_connect_dashboard_widget()
 	
 	$out .= '<div class="rss-widget">';
 	ob_start();
-	wp_widget_rss_output('http://feeds.feedburner.com/SynvedNews?format=xml', array('items' => 3, 'show_author' => 0, 'show_date' => 1, 'show_summary' => 1));
+	wp_widget_rss_output('http://feeds.feedburner.com/SynvedNews?format=xml', array('items' => 3, 'show_author' => 0, 'show_date' => 0, 'show_summary' => 1));
 	$out .= ob_get_clean();
 	$out .= '</div>';
 	
