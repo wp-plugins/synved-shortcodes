@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5
+Version: 1.5.1
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050000);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5');
+define('SYNVED_SHORTCODE_VERSION', 100050001);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.1');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -577,7 +577,7 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 				$bodies .= $tab_body;
 			}
 			
-			return '<div class="synved-tab-list synved-tab-list-nojs ui-tabs ui-widget ui-widget-content ui-corner-all' . $class . '" id="' . $id . '"><ul class="ui-tabs-nav ui-helper-clearfix ui-helper-reset ui-widget-header ui-corner-all">' . $heads . '</ul>' . $bodies . '</div>';
+			return '<span class="snvdshc"><div class="synved-tab-list synved-tab-list-nojs ui-tabs ui-widget ui-widget-content ui-corner-all' . $class . '" id="' . $id . '"><ul class="ui-tabs-nav ui-helper-clearfix ui-helper-reset ui-widget-header ui-corner-all">' . $heads . '</ul>' . $bodies . '</div></span>';
 		}
 	}
 	
@@ -697,7 +697,7 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 				$sections_out .= '<h4' . $section_head_class . '><a href="' . $section_href . '"' . $section_tip . '>' . $section_atts['title'] . '</a></h4><div' . $section_class . '>' . $section_body . '</div>';
 			}
 			
-			return '<div class="synved-section-list synved-section-list-nojs' .  esc_attr($class) . '" id="' . esc_attr($id) . '">' . $sections_out . '</div>';
+			return '<span class="snvdshc"><div class="synved-section-list synved-section-list-nojs' .  esc_attr($class) . '" id="' . esc_attr($id) . '">' . $sections_out . '</div></span>';
 		}
 	}
 	
@@ -763,7 +763,7 @@ function synved_shortcode_do_button($atts, $content = null, $code = '')
 		$tag = '<span class="synved-button-tag">' . $tag . '</span>';
 	}
 	
-	return '<button class="synved-button' . $class . '" title="' . esc_attr($atts['tip']) . '"' . $click . '>' . $content . $tag . '</button><div style="display:none" class="button-info"><span class="icon">' . $icon . '</span><span class="icon2">' . $icon2 . '</span></div>';
+	return '<span class="snvdshc"><button class="synved-button' . $class . '" title="' . esc_attr($atts['tip']) . '"' . $click . '>' . $content . $tag . '</button><div style="display:none" class="button-info"><span class="icon">' . $icon . '</span><span class="icon2">' . $icon2 . '</span></div></span>';
 }
 
 function synved_shortcode_do_list($atts, $content = null, $code = '')

@@ -6,11 +6,12 @@ if (!function_exists('synved_option_render_type_addon'))
 function synved_option_render_type_addon($id, $name, $item, $out_name, $extra = null)
 {
 	$type = synved_option_item_type($item);
+	$folder = synved_option_item_property($item, 'folder');
 	$out_id = isset($extra['out_id']) ? $extra['out_id'] : null;
 	$label = isset($extra['label']) ? $extra['label'] : null;
 	$out = null;
 	
-	$out .= '<div class="synved-option-overlay-markup" style="display:none;"><div class="overlay-ui"><div id="' . $out_id . '_overlay_container' . '" class="overlay-container">&nbsp;</div><div class="overlay-message">' . __('Click "Upload" and select the addon file (.zip). Only 1 file can be selected.', 'synved-option') . '</div>' . __('Progress', 'synved-option') . ': <div class="overlay-progress"></div></div><input id="' . $out_id . '_overlay_button' . '" type="button" class="overlay-button button-primary" value="' . __('Upload', 'synved-option') . '"/></div>';
+	$out .= '<div class="synved-option-overlay-markup snvdopt" style="display:none;"><div class="overlay-ui"><div id="' . $out_id . '_overlay_container' . '" class="overlay-container">&nbsp;</div><div class="overlay-message">' . __('Click "Upload" and select the addon file, "' . $folder . '.zip". Only 1 file can be selected.', 'synved-option') . '</div>' . __('Progress', 'synved-option') . ': <div class="overlay-progress"></div></div><input id="' . $out_id . '_overlay_button' . '" type="button" class="overlay-button button-primary" value="' . __('Upload', 'synved-option') . '"/></div>';
 	$out .= '<div class="synved-option-item-info" style="display:none;">' . "\n" . json_encode(array('id' => $id, 'name' => $name)) . "\n" . '</div>';
 	$out .= '<input type="hidden" name="' . synved_option_render_field_name($id, $name . '_info_') . '" value="' . $type . '" />';
 	$out .= '<input name="' . $out_name . '" id="' . $out_id . '" type="button" value="' . $label .'" class="button-secondary synved-option-overlay-button" />';

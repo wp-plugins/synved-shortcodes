@@ -97,7 +97,7 @@ function synved_connect_dashboard_widget()
 		update_option('synved_connect_install_date', time());
 	}
 	
-	//if ($install_date != null && (time() - $install_date) >= (60 * 60 * 6))
+	if ($install_date != null && (time() - $install_date) >= (60 * 60 * 6))
 	{
 		$sponsor_item = synved_connect_sponsor_item_pick(array('type' => 'intern|extern'));
 	

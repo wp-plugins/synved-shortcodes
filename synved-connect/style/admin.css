@@ -12,3 +12,9 @@ background-color:#e0f2e2;
 .sponsor-type-extern {
 background-color:#d2e8d4;
 }
+
+.synved-connect-notice .notice-secondary,
+.synved-connect-notice .notice-secondary a,
+.synved-connect-notice .notice-secondary a.rsswidget {
+font-size: 11px;
+}

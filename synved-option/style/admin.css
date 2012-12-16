@@ -9,6 +9,10 @@ background-color:#ffe4e0;
 .synved-option-style-addon-important-installed {
 background-color:#e0ffe4;
 }
+.synved-option-style-group-active th,
+.synved-option-style-group-active td {
+padding-top:2em;
+}
 .synved-option-important th {
 }
 

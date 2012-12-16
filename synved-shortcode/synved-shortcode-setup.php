@@ -4,6 +4,7 @@ $synved_shortcode_options = array(
 'synved_shortcode' => array(
 	'label' => 'Shortcodes',
 	'title' => 'WordPress Shortcodes',
+	'tip' => synved_option_callback('synved_shortcode_page_settings_tip'),
 	'sections' => array(
 		'customize_look' => array(
 			'label' => __('Customize Look', 'synved-shortcode'), 
@@ -54,6 +55,21 @@ synved_option_register('synved_shortcode', $synved_shortcode_options);
 
 synved_option_include_module_addon_list('synved-shortcode');
 
+
+function synved_shortcode_page_settings_tip($tip, $item)
+{
+	if (!function_exists('synved_social_version'))
+	{
+		//$tip .= ' <div style="background:#f2f2f2;font-size:110%;color:#444;padding:10px 15px;"><b>' . __('Note', 'synved-shortcode') . '</b>: ' . __('The WordPress Shortcodes plugin is fully compatible with our <a target="_blank" href="http://synved.com/wordpress-social-media-feather/">Social Media Feather</a> plugin!</span>', 'synved-shortcode') . '</div>';
+	}
+	
+	if (function_exists('synved_connect_support_social_follow_render'))
+	{
+		$tip .= synved_connect_support_social_follow_render();
+	}
+	
+	return $tip;
+}
 
 function synved_shortcode_section_customize_look_tip($tip, $item)
 {
@@ -131,14 +147,39 @@ function synved_shortcode_wp_register_common_scripts()
 {
 	$uri = synved_shortcode_path_uri();
 	
-	wp_register_style('jquery-ui', $uri . '/jqueryUI/css/custom/jquery-ui-1.8.11.custom.css', false, '1.8.11');
+	wp_register_style('synved-shortcode-jquery-ui', $uri . '/jqueryUI/css/snvdshc/jquery-ui-1.9.2.custom.min.css', false, '1.9.2');
 	wp_register_style('synved-shortcode-layout', $uri . '/style/layout.css', false, '1.0');
-	wp_register_style('synved-shortcode-jquery-ui', $uri . '/style/jquery-ui.css', array('jquery-ui'), '1.0');
+	wp_register_style('synved-shortcode-jquery-ui-custom', $uri . '/style/jquery-ui.css', false, '1.0');
 	
 	wp_register_script('jquery-unselectable', $uri . '/script/jquery-unselectable.js', array('jquery'), '1.0.0');
 	wp_register_script('jquery-babbq', $uri . '/script/jquery.ba-bbq.min.js', array('jquery'), '1.2.1');
 	wp_register_script('jquery-scrolltab', $uri . '/script/jquery.scrolltab.js', array('jquery'), '1.0');
 	wp_register_script('synved-shortcode-base', $uri . '/script/base.js', array('jquery-babbq', 'jquery-scrolltab', 'jquery-ui-tabs', 'jquery-ui-accordion', 'jquery-ui-button', 'jquery-unselectable', 'jquery-ui-slider'), '1.0');
+	
+	// XXX exception, ensure slickpanel works with new update
+	$slick_css_path = dirname(__FILE__) . '/addons/skin-slickpanel/style/jquery-ui.css';
+	
+	if (file_exists($slick_css_path))
+	{
+		$slick_css = file_get_contents($slick_css_path);
+		
+		if (strpos($slick_css, '.snvdshc') === false)
+		{
+			$slick_css_new = $slick_css;
+			$slick_css_new = preg_replace('/(\\.((ui-tabs)|(ui-accordion))\\s)/i', '.snvdshc $1', $slick_css_new);
+			$slick_css_new = str_replace('ui-tabs-selected', 'ui-tabs-active', $slick_css_new);
+			
+			$slick_css_new .= '
+.snvdshc .ui-accordion .ui-accordion-content {
+border-top-width:0;
+}';
+		
+			if ($slick_css_new != $slick_css)
+			{
+				file_put_contents($slick_css_path, $slick_css_new);
+			}
+		}
+	}
 }
 
 function synved_shortcode_enqueue_scripts()
@@ -149,9 +190,9 @@ function synved_shortcode_enqueue_scripts()
 	
 	wp_register_script('synved-shortcode-custom', $uri . '/script/custom.js', array('synved-shortcode-base'), '1.0');
 	
-	wp_enqueue_style('jquery-ui');
-	wp_enqueue_style('synved-shortcode-layout');
 	wp_enqueue_style('synved-shortcode-jquery-ui');
+	wp_enqueue_style('synved-shortcode-layout');
+	wp_enqueue_style('synved-shortcode-jquery-ui-custom');
 	
 	wp_enqueue_script('synved-shortcode-custom');
 }
@@ -170,14 +211,14 @@ function synved_shortcode_admin_enqueue_scripts()
 	wp_register_script('synved-shortcode-script-admin', $uri . '/script/admin.js', array('synved-shortcode-base', 'jquery', 'suggest', 'media-upload', 'thickbox', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-dialog'), '1.0.0');
 	wp_localize_script('synved-shortcode-script-admin', 'SynvedShortcodeVars', array('flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'), 'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'), 'ajaxurl' => admin_url('admin-ajax.php'), 'synvedSecurity' => wp_create_nonce('synved-shortcode-submit-nonce'), 'mainUri' => $uri, 'currentPost' => (isset($_GET['post']) ? $_GET['post'] : 0)));
 	
-	wp_register_style('synved-shortcode-admin', $uri . '/style/admin.css', array('jquery-ui', 'thickbox', 'wp-pointer', 'wp-jquery-ui-dialog'), '1.0');
+	wp_register_style('synved-shortcode-admin', $uri . '/style/admin.css', array('thickbox', 'wp-pointer', 'wp-jquery-ui-dialog'), '1.0');
 	wp_register_style('jquery-chosen', $uri . '/chosen/chosen.css', false, '0.9.8');
 	
-	wp_enqueue_style('jquery-ui');
+	wp_enqueue_style('synved-shortcode-jquery-ui');
 	wp_enqueue_style('farbtastic');
 	wp_enqueue_style('jquery-chosen');
 	wp_enqueue_style('synved-shortcode-layout');
-	wp_enqueue_style('synved-shortcode-jquery-ui');
+	wp_enqueue_style('synved-shortcode-jquery-ui-custom');
 	wp_enqueue_style('synved-shortcode-admin');
 	
 	wp_enqueue_script('plupload-all');
@@ -216,8 +257,8 @@ function synved_shortcode_admin_print_styles()
 			$wp_styles->dequeue(array('metabox-tabs', 'metabox-' . $color));
 			$wp_styles->enqueue(array('metabox-tabs', 'metabox-' . $color));
 			
-			$wp_styles->dequeue('synved-shortcode-jquery-ui');
-			$wp_styles->enqueue('synved-shortcode-jquery-ui');
+			$wp_styles->dequeue('synved-shortcode-jquery-ui-custom');
+			$wp_styles->enqueue('synved-shortcode-jquery-ui-custom');
 			
 			if ($wp_styles->query('synved-shortcode-skin-slickpanel-layout', 'queue'))
 			{
@@ -639,6 +680,11 @@ function synved_shortcode_ajax_callback()
 				$response_html .= '
 <div style="float:right"><a target="_blank" href="http://synved.com/wordpress-shortcodes/">WordPress Shortcodes</a> by <a target="_blank" href="http://synved.com">Synved</a>';
 
+				if (function_exists('synved_connect_support_social_follow_render_small'))
+				{
+					$response_html .= ' ' . synved_connect_support_social_follow_render_small();
+				}
+
 				if (!synved_option_addon_installed('synved_shortcode', 'skin_slickpanel'))
 				{
 					$response_html .= ' &raquo; <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">BE SLICK AND SUPPORT US!</a> &laquo;';
@@ -760,12 +806,16 @@ function synved_shortcode_init()
 	
 	synved_shortcode_register_list();
 	
+	$err_rep = error_reporting(0);
+	
 	synved_shortcode_register_presets($object_list);
 	
 	if (function_exists('synved_shortcode_addon_extra_presets_register'))
 	{
 		synved_shortcode_addon_extra_presets_register($object_list);
 	}
+	
+	error_reporting($err_rep);
 	
 	if (current_user_can('edit_posts') || current_user_can('edit_pages'))
 	{
@@ -780,11 +830,14 @@ function synved_shortcode_init()
 	
 	if (synved_option_get('synved_shortcode', 'shortcode_widgets'))
 	{
+		remove_filter('widget_text', 'do_shortcode', $priority);
 		add_filter('widget_text', 'do_shortcode', $priority);
 	}
 	
 	if (synved_option_get('synved_shortcode', 'shortcode_feed'))
 	{
+		remove_filter('the_content_feed', 'do_shortcode', $priority);
+		remove_filter('the_excerpt_rss', 'do_shortcode', $priority);
 		add_filter('the_content_feed', 'do_shortcode', $priority);
 		add_filter('the_excerpt_rss', 'do_shortcode', $priority);
 	}

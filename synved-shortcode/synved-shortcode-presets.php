@@ -12,7 +12,7 @@ function synved_shortcode_register_presets($object_list)
 	$post2_id = isset($object_list['post-2']['ID']) ? $object_list['post-2']['ID'] : 0;
 	$post2_name = isset($object_list['post-2']['post_name']) ? $object_list['post-2']['post_name'] : null;
 	$page_id = isset($object_list['page']['ID']) ? $object_list['page']['ID'] : 0;
-	$page_name = get_page_uri($page_id);
+	$page_name = $page_id ? get_page_uri($page_id) : null;
 	$media_id = isset($object_list['media']['ID']) ? $object_list['media']['ID'] : 0;
 	$media_title = isset($object_list['media']['post_title']) ? $object_list['media']['post_title'] : null;
 	$user_id = get_current_user_id();

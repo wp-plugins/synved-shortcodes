@@ -1,28 +1,80 @@
 <?php
 
-function synved_option_item_find_into($name, $list)
+function synved_option_item_query_into($filter, $list)
 {
+	if ($list == null)
+	{
+		return null;
+	}
+	
 	foreach ($list as $item_name => $item)	
 	{
-		if ($item_name == $name)
+		if ($filter != null)
 		{
-			return $item;
+			$filter = $filter;
+			$filter_keys = array_keys($filter);
+			$filter_name = $filter_keys[0];
+			$filter_value = $filter[$filter_keys[0]];
+			
+			if (is_string($filter_name) || !is_array($filter_value))
+			{
+				$filter = array($filter);
+			}
+			
+			$found_item = true;
+			
+			foreach ($filter as $filter_index => $filter_list)
+			{
+				$pass = false;
+				
+				foreach ($filter_list as $filter_name => $filter_value)
+				{
+					if ($filter_name == 'name')
+					{
+						if ($item_name == $filter_value)
+						{
+							$pass = true;
+						}
+					}
+					else
+					{
+						$property = synved_option_item_property($item, $filter_name);
+					
+						if ($property == $filter_value)
+						{
+							$pass = true;
+						}
+					}
+				}
+				
+				$found_item = ($found_item && $pass);
+				
+				if (!$found_item)
+				{
+					break;
+				}
+			}
+			
+			if ($found_item)
+			{
+				return $item;
+			}
 		}
 		
 		$type = synved_option_item_type($item);
 		
-		if ($type == 'options-page' && isset($item['sections']))
+		if ($type == 'options-page' && isset($item['sections']) && $item['sections'] != null)
 		{
-			$ret = synved_option_item_find_into($name, $item['sections']);
+			$ret = synved_option_item_query_into($filter, $item['sections']);
 			
 			if ($ret != null)
 			{
 				return $ret;
 			}
 		}
-		else if ($type == 'options-section' && isset($item['settings']))
+		else if ($type == 'options-section' && isset($item['settings']) && $item['settings'] != null)
 		{
-			$ret = synved_option_item_find_into($name, $item['settings']);
+			$ret = synved_option_item_query_into($filter, $item['settings']);
 			
 			if ($ret != null)
 			{
@@ -34,7 +86,7 @@ function synved_option_item_find_into($name, $list)
 	return null;
 }
 
-function synved_option_item_find($id, $name)
+function synved_option_item_query($id, $filter)
 {
 	global $synved_option_list;
 	
@@ -42,9 +94,9 @@ function synved_option_item_find($id, $name)
 	{
 		if ($id == null || $list_id == $id)
 		{
-			$items = synved_option_item_list($id);
+			$items = synved_option_item_list($list_id);
 		
-			$ret = synved_option_item_find_into($name, $items);
+			$ret = synved_option_item_query_into($filter, $items);
 		
 			if ($ret != null || $id != null)
 			{
@@ -54,6 +106,16 @@ function synved_option_item_find($id, $name)
 	}
 	
 	return null;
+}
+
+function synved_option_item_find_into($name, $list)
+{
+	return synved_option_item_query_into(array('name' => $name), $list);
+}
+
+function synved_option_item_find($id, $name)
+{
+	return synved_option_item_query($id, array('name' => $name));
 }
 
 function synved_option_item($id, $name)
@@ -221,6 +283,18 @@ function synved_option_item_tip(array $item)
 	return $tip;
 }
 
+function synved_option_item_hint(array $item)
+{
+	$hint = isset($item['hint']) ? $item['hint'] : null;
+	
+	if ($hint instanceof SynvedOptionCallback)
+	{
+		$hint = $hint->Invoke(array(null, $item));
+	}
+	
+	return $hint;
+}
+
 function synved_option_item_default(array $item)
 {
 	$default = isset($item['default']) ? $item['default'] : null;
@@ -371,7 +445,7 @@ function synved_option_item_page_link_url($id, $name)
 function synved_option_item_set_parse(array $item, $set)
 {
 	$type = synved_option_item_type($item);
-	preg_match_all('/\\s*(\\d+(?:(?:\\.|(?:\\s*-\\s*))\\d+)*)|([^=,]+)\s*(?:=\s*((?:[^,"]+)|(?:"(?:(?:[^"\\\\])|(?:\\.))*")))?(?:,|$)/', $set, $matches, PREG_SET_ORDER);
+	preg_match_all('/\\s*(?:(\\d+(?:(?:\\.|(?:\\s*-\\s*))\\d+)*)|([^=,]+))\s*(?:=\s*((?:[^,"]+)|(?:"(?:(?:[^"\\\\])|(?:\\.))*")))?(?:,|$)/', $set, $matches, PREG_SET_ORDER);
 	
 	$set = array();
 	
@@ -381,32 +455,38 @@ function synved_option_item_set_parse(array $item, $set)
 		$value = isset($match[2]) ? $match[2] : null;
 		$label = isset($match[3]) ? $match[3] : null;
 		
+		if ($number != null && $value == null)
+		{
+			$value = $number;
+		}
+		
+		$label = trim($label, '"');
+		$value = array($value => $label);
+		
 		if ($number != null)
 		{
 			$range = explode('-', $number);
 			$count = count($range);
-			$value_range = array();
 			
-			for ($i = 0; $i < $count; $i++)
+			if ($count > 1)
 			{
-				$range_item = $range[$i];
-				$range_value = synved_option_item_sanitize_value_basic($item, $range_item, 0);
+				$value_range = array();
 			
-				if ($range_value == 0)
+				for ($i = 0; $i < $count; $i++)
 				{
-					$range_value = $range_item;
-				}
+					$range_item = $range[$i];
+					$range_value = synved_option_item_sanitize_value_basic($item, $range_item, 0);
+			
+					if ($range_value == 0)
+					{
+						$range_value = $range_item;
+					}
 				
-				$value_range[$range_value] = $range_value;
+					$value_range[$range_value] = $range_value;
+				}
+		
+				$value = $value_range;
 			}
-			
-			$value = $value_range;
-		}
-		else
-		{
-			$label = trim($label, '"');
-			
-			$value = array($value => $label);
 		}
 		
 		$set[] = $value;
@@ -464,6 +544,11 @@ function synved_option_item_callback(array $item, $callback_id, $callback_parame
 function synved_option_item_validate(array $item)
 {
 	return synved_option_item_callback($item, 'validate', '$value, $name, $id, $item');
+}
+
+function synved_option_item_render(array $item)
+{
+	return synved_option_item_callback($item, 'render', '$value, $params, $name, $id, $item');
 }
 
 function synved_option_item_sanitize(array $item)
@@ -552,7 +637,7 @@ function synved_option_item_validate_value($id, $name, $value, &$new_value = nul
 function synved_option_item_sanitize_value_basic(array $item, $value, $default = null)
 {
 	$type = synved_option_item_type($item);
-	$set = synved_option_item_set($item);
+	$set = isset($item['set']) ? $item['set'] : null;
 	
 	if ($default === null)
 	{
@@ -650,8 +735,39 @@ function synved_option_item_sanitize_value($id, $name, $value, array $item = nul
 	}
 	
 	$value = synved_option_item_sanitize_value_basic($item, $value, $default);
+	$is_valid = true;
 	
-	if ($set == null || synved_option_item_set_check_value($item, $set, $value))
+	if ($set != null)
+	{
+		if (is_array($value))
+		{
+			$is_valid = false;
+			$new_value = array();
+		
+			foreach ($value as $single_key => $single_value)
+			{
+				if (synved_option_item_set_check_value($item, $set, $single_value))
+				{
+					$new_value[$single_key] = $single_value;
+				}
+			}
+			
+			if ($new_value != null)
+			{
+				$is_valid = true;
+				$value = $new_value;
+			}
+		}
+		else
+		{
+			if (!synved_option_item_set_check_value($item, $set, $value))
+			{
+				$value = $default;
+			}
+		}
+	}
+	
+	if ($is_valid)
 	{
 		if ($sanitize != null)
 		{

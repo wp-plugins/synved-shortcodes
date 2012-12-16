@@ -141,16 +141,6 @@ function synved_option_callback($callback, $default = null, $callback_parameters
 		$func = $callback[1];
 	}
 	
-	if ($callback_parameters === null)
-	{
-		$callback_parameters = array(
-			'value' => array(),
-			'item' => array('default' => null), 
-			'name' => array('default' => null), 
-			'id' => array('default' => null)
-		);
-	}
-	
 	return new SynvedOptionCallback($func, $object, $default, $callback_parameters);
 }
 
@@ -346,6 +336,8 @@ function synved_option_item_list($id)
 		
 		return $list;
 	}
+	
+	return null;
 }
 
 function synved_option_prepare_list($id)
@@ -826,12 +818,46 @@ function synved_option_wp_admin_init()
 	}
 }
 
+function synved_option_wp_upgrader_source_selection($source, $remote_source, $object = null)
+{
+	if (is_wp_error($source))
+	{
+		return $source;
+	}
+
+	if ($object != null && $object instanceof Plugin_Upgrader && method_exists($object, 'check_package'))
+	{
+		$result = $object->check_package($source);
+		
+		if (is_wp_error($result))
+		{
+			$folder_name = basename($source);
+			$addon_item = synved_option_item_query(null, array(array('type' => 'addon'), array('folder' => $folder_name)));
+			
+			if ($addon_item != null)
+			{
+				// XXX fix this $id/$name retrieval...ugly
+				$id = $addon_item['_synved_option_id'];
+				$name = $addon_item['_synved_option_name'];
+				$addon_page = synved_option_item_page($id, $name);
+				$page_item = synved_option_item($id, $addon_page);
+				$page_label = synved_option_item_label($page_item);
+				$page_url = synved_option_item_page_link_url($id, $name);
+				
+				$source = new WP_Error('synved_option_invalid_plugin_is_addon', sprintf(__('<b>This addon must be installed through the <a href="%s">%s settings page</a>.</b>'), $page_url, $page_label), '');
+			}
+		}
+	}
+
+	return $source;
+}
+
 function synved_option_admin_enqueue_scripts()
 {
 	$uri = synved_option_path_uri();
 	
-	wp_register_style('jquery-ui', $uri . '/jqueryUI/css/custom/jquery-ui-1.8.11.custom.css', false, '1.8.11');
-	wp_register_style('synved-option-admin', $uri . '/style/admin.css', array('jquery-ui', 'wp-jquery-ui-dialog'), '1.0');
+	wp_register_style('synved-option-jquery-ui', $uri . '/jqueryUI/css/snvdopt/jquery-ui-1.9.2.custom.min.css', false, '1.9.2');
+	wp_register_style('synved-option-admin', $uri . '/style/admin.css', array('wp-jquery-ui-dialog'), '1.0');
 	
 	wp_register_script('synved-option-script-custom', $uri . '/script/custom.js', array('jquery', 'suggest', 'media-upload', 'thickbox', 'jquery-ui-core', 'jquery-ui-progressbar', 'jquery-ui-dialog'), '1.0.0');
 	wp_localize_script('synved-option-script-custom', 'SynvedOptionVars', array('flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'), 'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'), 'ajaxurl' => admin_url('admin-ajax.php'), 'synvedSecurity' => wp_create_nonce('synved-option-submit-nonce')));
@@ -839,6 +865,7 @@ function synved_option_admin_enqueue_scripts()
 	wp_enqueue_style('thickbox');
 	wp_enqueue_style('farbtastic');
 	wp_enqueue_style('wp-pointer');
+	wp_enqueue_style('synved-option-jquery-ui');
 	wp_enqueue_style('synved-option-admin');
 	
 	wp_enqueue_script('plupload-all');
@@ -913,6 +940,7 @@ function synved_option_ajax()
 
 add_action('after_setup_theme', 'synved_option_wp_after_setup_theme');
 add_action('init', 'synved_option_wp_init');
+add_filter('upgrader_source_selection', 'synved_option_wp_upgrader_source_selection', 9, 3);
 
 if (is_admin())
 {

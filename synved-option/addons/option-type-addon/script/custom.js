@@ -265,6 +265,7 @@ jQuery(document).ready(function() {
 				
 				uploader.bind('Error', function(up, err) {
 					console.log(err);
+					finishInstall(err.message, true);
 				});
     		
     		uploader.init();

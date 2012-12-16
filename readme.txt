@@ -25,6 +25,8 @@ Just use the intuitive shortcode editor to create a message box, error box or wa
 
 The shortcode editor presents a very intuitive and easy to use interface, with many built-in presets that make inserting many commonly needed default shortcodes in your posts/pages a breeze! If you want you can also get [over 30+ extra useful amazing presets](http://synved.com/product/wordpress-shortcodes-extra-presets/) for covering almost all needs.
 
+The plugin offers all common jQuery UI functionality as well like jQuery UI Accordions, JQuery UI Tabs, jQuery UI buttons and so on. The UI tabs provide many different features including full SEO compatible selection of active tab without need for JavaScript.
+
 = Features =
 * 20+ shortcodes and different elements!
 * Create tabs, sections/accordions, layout, lists, links, buttons and more!
@@ -44,6 +46,30 @@ The shortcode editor presents a very intuitive and easy to use interface, with m
 * Optional slick and [professional skin available](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
 
 = Example Shortcodes =
+
+The following will create a series of 2 jQuery UI tabs on your site:
+`[tabs]
+[tab title="Tab 1"]
+Tab Content 1.
+[/tab]
+[tab title="Tab 2"]
+Tab Content 2.
+[/tab]
+[/tabs]`
+
+The following will create a series of 2 jQuery UI accordions on your site:
+`[sections]
+[section title="Section 1"]
+<p style="margin:5px 0;padding:0;">
+Section Content 1.
+</p>
+[/section]
+[section title="Section 2"]
+<p style="margin:5px 0;padding:0;">
+Section Content 2.
+</p>
+[/section]
+[/sections]`
 
 The following will create a list of links to various kinds of content on your site:
 `[list icon=link]
@@ -92,6 +118,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.5.1 =
+* Fixed warnings introduced by WordPress 3.5
+* Fixed incompatibilities with jQuery UI stylesheets from other plugins
 
 = 1.5 =
 * Added Presets! Allowing for quick starting points and functionality demos
