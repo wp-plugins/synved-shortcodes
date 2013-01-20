@@ -60,7 +60,7 @@ function synved_shortcode_page_settings_tip($tip, $item)
 {
 	if (!function_exists('synved_social_version'))
 	{
-		//$tip .= ' <div style="background:#f2f2f2;font-size:110%;color:#444;padding:10px 15px;"><b>' . __('Note', 'synved-shortcode') . '</b>: ' . __('The WordPress Shortcodes plugin is fully compatible with our <a target="_blank" href="http://synved.com/wordpress-social-media-feather/">Social Media Feather</a> plugin!</span>', 'synved-shortcode') . '</div>';
+		$tip .= ' <div style="background:#f2f2f2;font-size:110%;color:#444;padding:10px 15px;"><b>' . __('Note', 'synved-shortcode') . '</b>: ' . __('The WordPress Shortcodes plugin is fully compatible with our <a target="_blank" href="http://synved.com/wordpress-social-media-feather/">Social Media Feather</a> plugin!</span>', 'synved-shortcode') . '</div>';
 	}
 	
 	if (function_exists('synved_connect_support_social_follow_render'))

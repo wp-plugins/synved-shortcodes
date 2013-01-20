@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5.1
+Version: 1.5.2
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050001);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.1');
+define('SYNVED_SHORTCODE_VERSION', 100050002);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.2');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -426,13 +426,23 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 {
 	global $synved_shortcode;
 	
-	$atts_def = array('dynamic' => false, 'scroll' => true, 'class' => '');
+	$atts_def = array('imitate' => null, 'dynamic' => false, 'scroll' => true, 'class' => '');
 	$atts = shortcode_atts($atts_def, $atts);
+	$is_imitate = $atts['imitate'];
 	$is_dynamic = $atts['dynamic'];
 	$is_scroll = $atts['scroll'];
 	$att_class = $atts['class'];
 	$is_dynamic_load = isset($_GET['synved_dynamic_load']);
 	$tab_selected = isset($_GET['snvdstt']) ? $_GET['snvdstt'] : null;
+	
+	if ($is_imitate === null)
+	{
+		$is_imitate = $is_dynamic;
+	}
+	
+	$is_imitate = in_array($is_imitate, array('yes', 'true'));
+	$is_dynamic = in_array($is_dynamic, array('yes', 'true'));
+	$is_scroll = in_array($is_scroll, array('yes', 'true'));
 	
 	$pattern = get_shortcode_regex();
 	$matches = array();
@@ -514,6 +524,7 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 				$tab_head_class = null;
 				$tab_body = null;
 				$tab_body_class = null;
+				$tab_body_style = null;
 				$tab_return = false;
 				
 				if ($tab_selected == null && $i == 0)
@@ -532,7 +543,12 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 				}
 				else
 				{
-					$tab_href = get_permalink() . '?snvdstt=' . $tab_id . '#' . $tab_id;
+					if ($is_imitate)
+					{
+						$tab_href = get_permalink() . '?snvdstt=' . $tab_id;
+					}
+					
+					$tab_href .= '#' . $tab_id;
 				}
 				
 				if (!$is_dynamic || strtolower($tab_selected) == strtolower($tab_id))
@@ -543,13 +559,18 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 				
 				if (strtolower($tab_selected) == strtolower($tab_id))
 				{
-					$tab_head_class .= ' ui-tabs-selected ui-state-active';
+					$tab_head_class .= ' ui-tabs-selected ui-tabs-active ui-state-active';
 					$tab_body_class .= ' ui-tabs-panel ui-widget-content ui-corner-bottom';
 				}
 				else
 				{
-					$tab_head_class .= '';
-					$tab_body_class .= ' ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide';
+					$tab_head_class .= ' ui-state-default';
+					$tab_body_class .= ' ui-tabs-panel ui-widget-content ui-corner-bottom';
+					
+					if ($is_imitate)
+					{
+						$tab_body_class .= ' ui-tabs-hide';
+					}
 				}
 			
 				$sanitized_title = sanitize_title($tab_atts['title']);
@@ -568,9 +589,24 @@ function synved_shortcode_do_tabs($atts, $content = null, $code = '')
 					exit();
 				}
 				
-				$tab_head = '<li class="tab-title ui-state-default ui-corner-top' . $tab_head_class . '"><a title="' . $tab_atts['tip'] . '" href="' . $tab_href . '">' . $tab_atts['title'] . '</a></li>';
+				$tab_head = '<li class="tab-title ui-corner-top' . $tab_head_class . '"><a title="' . $tab_atts['tip'] . '" href="' . $tab_href . '">' . $tab_atts['title'] . '</a></li>';
 				
-				$tab_body = '<div class="tab-body' . $tab_body_class . '" id="' . $tab_id . '">' . $tab_body . '</div>';
+				$tab_body_css = null;
+				
+				if ($tab_body_style != null)
+				{
+					foreach ($tab_body_style as $style_name => $style_value)
+					{
+						$tab_body_css .= $style_name . ':' . $style_value . ';';
+					}
+				}
+				
+				if ($tab_body_css != null)
+				{
+					$tab_body_css = ' style="' . esc_attr($tab_body_css) . '"';
+				}
+				
+				$tab_body = '<div class="tab-body' . $tab_body_class . '" id="' . $tab_id . '"' . $tab_body_css . '>' . $tab_body . '</div>';
 				
 				$heads .= $tab_head;
 				
@@ -595,13 +631,23 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 {
 	global $synved_shortcode;
 	
-	$atts_def = array('dynamic' => false, 'scroll' => true, 'class' => '');
+	$atts_def = array('imitate' => null, 'dynamic' => false, 'scroll' => true, 'class' => '');
 	$atts = shortcode_atts($atts_def, $atts);
+	$is_imitate = $atts['imitate'];
 	$is_dynamic = $atts['dynamic'];
 	$is_scroll = $atts['scroll'];
 	$att_class = $atts['class'];
 	$is_dynamic_load = isset($_GET['synved_dynamic_load']);
 	$section_selected = isset($_GET['snvdsts']) ? $_GET['snvdsts'] : null;
+	
+	if ($is_imitate === null)
+	{
+		$is_imitate = $is_dynamic;
+	}
+	
+	$is_imitate = in_array($is_imitate, array('yes', 'true'));
+	$is_dynamic = in_array($is_dynamic, array('yes', 'true'));
+	$is_scroll = in_array($is_scroll, array('yes', 'true'));
 	
 	$pattern = get_shortcode_regex();
 	$matches = array();
@@ -648,7 +694,7 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 				$class .= ' ' . $att_class;
 			}
 			
-			$section_def = array('title' => null, 'tip' => null);
+			$section_def = array('title' => null, 'tip' => null, 'active' => null);
 			$count = count($sections);
 			
 			for ($i = 0; $i < $count; $i++)
@@ -667,6 +713,7 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 				
 				// XXX incomplete, this will cause SEO problems, need to provide server side selection first
 				// $section_href = get_permalink() . '?snvdsts=' . $section_id . '#' . $section_id;
+				$section_href = '#' . $section_id;
 				
 				if ($i % 2 == 0)
 				{
@@ -854,7 +901,7 @@ function synved_shortcode_do_list($atts, $content = null, $code = '')
 				$items_out .= '<li' . $item_tip . $item_class . '>' . $item_icon . $item_body . '</li>';
 			}
 			
-			return '<' . $tag . ' class="synved-item-list synved-item-list-nojs' . $class . '" id="' . $id . '" style="list-style-type:' . $style_type . ';">' . $items_out . '</' . $tag . '>';
+			return '<span class="snvdshc"><' . $tag . ' class="synved-item-list synved-item-list-nojs' . $class . '" id="' . $id . '" style="list-style-type:' . $style_type . ';">' . $items_out . '</' . $tag . '></span>';
 		}
 	}
 	
@@ -939,7 +986,7 @@ function synved_shortcode_do_column($atts, $content = null, $code = '', $type = 
 		$css_content = ' style="' . esc_attr($css_content) . '"';
 	}
 	
-	return '<div class="synved-content-column' . ($class ? (' ' . esc_attr($class)) : null) . '"' . $css . '><div class="synved-column-content"' . $css_content . '>' . synved_shortcode_do_shortcode($content, 'column_' . $type) . '</div></div>';
+	return '<span class="snvdshc"><div class="synved-content-column' . ($class ? (' ' . esc_attr($class)) : null) . '"' . $css . '><div class="synved-column-content"' . $css_content . '>' . synved_shortcode_do_shortcode($content, 'column_' . $type) . '</div></div></span>';
 }
 
 function synved_shortcode_column_register($type, $default = null)
@@ -1011,7 +1058,7 @@ function synved_shortcode_do_box($atts, $content = null, $code = '', $type = nul
 	$typeclass = 'synved-box-' . $type;
 	$class = $typeclass;
 	
-	return '<div class="synved-box-message' . ($class ? (' ' . $class) : null) . '">' . synved_shortcode_do_shortcode($content, 'box_' . $type) . '</div>';
+	return '<span class="snvdshc"><div class="synved-box-message' . ($class ? (' ' . $class) : null) . '">' . synved_shortcode_do_shortcode($content, 'box_' . $type) . '</div></span>';
 }
 
 function synved_shortcode_box_register($type, $default = null)
@@ -1164,7 +1211,7 @@ function synved_shortcode_do_link($atts, $content = null, $code = '', $type = nu
 		
 		$out = $template_markup;
 		
-		return $out;
+		return '<span class="snvdshc">' . $out . '</span>';
 	}
 	
 	return null;
@@ -1297,9 +1344,10 @@ Tab Content 2.
 		'tip' => __('Creates a list of SEO-friendly tabs that work with or without JavaScript', 'synved-shortcode'),
 		'parameters' => array(
 			'class' => __('Only for [tabs] element, specify a custom CSS class for the main tabs container', 'synved-shortcode'),
+			'imitate' => __('Only for [tabs] element, imitate usual tab behaviour when JavaScript is disabled, i.e. hiding inactive tabs and creating actual links that will open those tabs by reloading the page, use imitate="yes" (Note: if set to "yes" this could damage SEO for the page)', 'synved-shortcode'),
 			'title' => __('Only for [tab] element, specify the title of the tab', 'synved-shortcode'),
 			'tip' => __('Only for [tab] element, specify a tooltip to show when hovering the tab with the mouse', 'synved-shortcode'),
-			'active' => __('Only for [tab] element, specify whether the tab is the active tab (use active=yes)', 'synved-shortcode')
+			'active' => __('Only for [tab] element, specify whether the tab is the active tab, use active="yes"', 'synved-shortcode')
 		)
 	));
 
@@ -1319,12 +1367,12 @@ Section Content 2.
 [/%%_synved_name_section%%]
 [/%%_synved_name%%]');
 	synved_shortcode_item_help_set('sections', array(
-		'tip' => __('Creates a list exclusive sections, also called accordions', 'synved-shortcode'),
+		'tip' => __('Creates a list of exclusive sections, also called accordions', 'synved-shortcode'),
 		'parameters' => array(
 			'class' => __('Only for [sections] element, specify a custom CSS class for the main sections container', 'synved-shortcode'),
 			'title' => __('Only for [section] element, specify the title of the section', 'synved-shortcode'),
 			'tip' => __('Only for [section] element, specify a tooltip to show when hovering the section with the mouse', 'synved-shortcode'),
-			//'active' => __('Only for [section] element, specify whether the tab is the active tab (use active=yes)', 'synved-shortcode')
+			//'active' => __('Only for [section] element, specify whether the tab is the active section, use active="yes"', 'synved-shortcode')
 		)
 	));
 
@@ -1353,7 +1401,7 @@ Section Content 2.
 [%%_synved_name_item%%]Item 3[/%%_synved_name_item%%]
 [/%%_synved_name%%]');
 	synved_shortcode_item_help_set('list', array(
-		'tip' => __('Creates a list exclusive sections, also called accordions', 'synved-shortcode'),
+		'tip' => __('Creates a list of items in a layout', 'synved-shortcode'),
 		'parameters' => array(
 			'type' => __('Only for [list] element, specify a custom type, possible values are decimal,alpha,roman,latin,upper-alpha,lower-roman,upper-latin', 'synved-shortcode'),
 			'icon' => __('Specify the default icon for [list], which overwrites <b>type</b>, or the individual icon for each [item], check the <a target="_blank" href="http://synved.com/blog/help/tutorial/wordpress-shortcodes-icons/">list of icons</a>', 'synved-shortcode'),

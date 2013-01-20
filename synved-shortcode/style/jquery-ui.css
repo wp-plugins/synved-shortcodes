@@ -43,6 +43,10 @@ color: #363636;
 
 .snvdshc .ui-accordion .ui-accordion-header {
 }
+.snvdshc .ui-accordion .ui-accordion-header .ui-icon {
+display:inline-block;
+vertical-align:bottom;
+}
 .snvdshc .ui-accordion .ui-accordion-content {
 border-top-width:0;
 padding:0.8em 1.4em 0.2em 1.4em;
@@ -55,8 +59,6 @@ padding:0;
 }
 .snvdshc .synved-tab-list-nojs ul li {
 float:left;
-margin:5px;
-padding:10px;
 }
 .snvdshc .ui-tabs .ui-tabs-nav {
 border-bottom:1px solid #AAAAAA;
@@ -67,9 +69,14 @@ list-style: none outside none;
 white-space: nowrap;
 }
 .snvdshc .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+margin-bottom: -1px;
+padding-bottom: 1px;
 }
 .snvdshc .ui-tabs .ui-tabs-panel {
 border-width: 0;
+}
+.snvdshc .ui-tabs .ui-tabs-hide {
+display:none;
 }
 
 .synved-item-list-none,

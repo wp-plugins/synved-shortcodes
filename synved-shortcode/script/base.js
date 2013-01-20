@@ -38,6 +38,8 @@ function synved_shortcode_apply_all(context)
 	jQuery('.synved-tab-list', context).each(function() {
 		var tabs = jQuery(this);
 		
+		tabs.find('li.tab-title').removeClass('ui-tabs-selected ui-tabs-active ui-state-active');
+		
 		tabs.find('li.tab-title a').each(function() {
 			var tab = this;
 			if (tab.href != '' && tab.href[0] != '#') {
@@ -62,9 +64,11 @@ function synved_shortcode_apply_all(context)
     	return true;
     }
 	}).each(function () {
-		if (jQuery(this).hasClass('synved-content-scrollable'))
+		var tabs = jQuery(this);
+		
+		if (tabs.hasClass('synved-content-scrollable'))
 		{
-			var nav = jQuery(this).find('.ui-tabs-nav');
+			var nav = tabs.find('.ui-tabs-nav');
 			var height = nav.find('.tab-title').height();
 			
 //			nav.css({
