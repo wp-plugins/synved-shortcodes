@@ -7,6 +7,7 @@ font-size:1em !important;
 border: 1px solid #D3D3D3;
 color: #555555;
 font-weight: normal;
+margin: 0;
 }
 .snvdshc .ui-state-default a, .snvdshc .ui-state-default a:link, .snvdshc .ui-state-default a:visited {
 color: #555555;
@@ -71,6 +72,9 @@ white-space: nowrap;
 .snvdshc .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
 margin-bottom: -1px;
 padding-bottom: 1px;
+}
+.snvdshc .ui-tabs .ui-tabs-nav li.tab-title a {
+outline: none;
 }
 .snvdshc .ui-tabs .ui-tabs-panel {
 border-width: 0;

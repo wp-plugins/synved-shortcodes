@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5.2
+Version: 1.5.3
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050002);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.2');
+define('SYNVED_SHORTCODE_VERSION', 100050003);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.3');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -631,12 +631,13 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 {
 	global $synved_shortcode;
 	
-	$atts_def = array('imitate' => null, 'dynamic' => false, 'scroll' => true, 'class' => '');
+	$atts_def = array('imitate' => null, 'dynamic' => false, 'scroll' => true, 'class' => '', 'collapse' => false);
 	$atts = shortcode_atts($atts_def, $atts);
 	$is_imitate = $atts['imitate'];
 	$is_dynamic = $atts['dynamic'];
 	$is_scroll = $atts['scroll'];
 	$att_class = $atts['class'];
+	$collapse = $atts['collapse'];
 	$is_dynamic_load = isset($_GET['synved_dynamic_load']);
 	$section_selected = isset($_GET['snvdsts']) ? $_GET['snvdsts'] : null;
 	
@@ -692,6 +693,16 @@ function synved_shortcode_do_sections($atts, $content = null, $code = '')
 			if ($att_class != null)
 			{
 				$class .= ' ' . $att_class;
+			}
+			
+			if (in_array($collapse, array('allow', 'always')))
+			{
+				$class .= ' synved-sections-collapse';
+			}
+			
+			if ($collapse == 'always')
+			{
+				$class .= ' synved-sections-collapse-always';
 			}
 			
 			$section_def = array('title' => null, 'tip' => null, 'active' => null);
@@ -1370,6 +1381,7 @@ Section Content 2.
 		'tip' => __('Creates a list of exclusive sections, also called accordions', 'synved-shortcode'),
 		'parameters' => array(
 			'class' => __('Only for [sections] element, specify a custom CSS class for the main sections container', 'synved-shortcode'),
+			'collapse' => __('Only for [sections] element, determines if all sections can be collapsed at the same time, possible values are "allow" or "always" where "always" will collapse them all by default', 'synved-shortcode'),
 			'title' => __('Only for [section] element, specify the title of the section', 'synved-shortcode'),
 			'tip' => __('Only for [section] element, specify a tooltip to show when hovering the section with the mouse', 'synved-shortcode'),
 			//'active' => __('Only for [section] element, specify whether the tab is the active section, use active="yes"', 'synved-shortcode')

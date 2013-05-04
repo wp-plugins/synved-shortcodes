@@ -20,7 +20,22 @@ function synved_shortcode_apply_all(context)
 		});
 	});
 	
-	jQuery('.synved-section-list', context).removeClass('synved-section-list-nojs').accordion({ autoHeight: false, navigation : true });
+	jQuery('.synved-section-list', context).removeClass('synved-section-list-nojs').each(function() {
+		var jthis = jQuery(this);
+		var params = { autoHeight: false, navigation : true };
+		
+		if (jthis.hasClass('synved-sections-collapse'))
+		{
+			params.collapsible = true;
+		}
+		
+		if (jthis.hasClass('synved-sections-collapse-always'))
+		{
+			params.active = false;
+		}
+		
+		jthis.accordion(params);
+	});
 	
 	jQuery('.synved-tab-list.synved-content-dynamic', context).each(function() {
 		var tabs = jQuery(this);
