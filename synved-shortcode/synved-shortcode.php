@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5.3
+Version: 1.5.4
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,11 +18,12 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050003);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.3');
+define('SYNVED_SHORTCODE_VERSION', 100050004);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.4');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
+include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'synved-shortcode-data.php');
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'synved-shortcode-item.php');
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'synved-shortcode-setup.php');
 include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'synved-shortcode-presets.php');
@@ -40,345 +41,6 @@ function synved_shortcode_version()
 function synved_shortcode_version_string()
 {
 	return SYNVED_SHORTCODE_VERSION_STRING;
-}
-
-function synved_shortcode_data_get_display_item($atts, $type = null)
-{
-	$atts_def = array('id' => null, 'name' => null, 'slug' => null, 'title' => null, 'size' => null, 'email' => null, 'post_type' => null, 'taxonomy' => null, 'edit' => null, 'content' => null, 'tip' => null, 'abstract' => null, 'class' => null);
-	$atts = shortcode_atts($atts_def, $atts);
-	
-	if ($type == null)
-	{
-		$type = 'post';
-	}
-	
-	$id = $atts['id'];
-	$name = $atts['name'];
-	$slug = $atts['slug'];
-	$title = $atts['title'];
-	$size = $atts['size'];
-	$email = $atts['email'];
-	$post_type = $atts['post_type'];
-	$taxonomy = $atts['taxonomy'];
-	$edit = $atts['edit'];
-	$pull_content = $atts['content'] == 'yes';
-	$tip = $atts['tip'];
-	$abstract = $atts['abstract'];
-	$class = $atts['class'];
-
-	if ($size != null)
-	{
-		$size_parts = explode('x', $size);
-		$size_parts = array_map('intval', $size_parts);
-		
-		if (count($size_parts) > 1)
-		{
-			$size = $size_parts;
-		}
-		else if (is_numeric($size) && intval($size) > 0)
-		{
-			$size = array(intval($size), intval($size));
-		}
-	}
-	
-	$object = null;
-	$item = array();
-	
-	switch ($type)
-	{
-		case 'post':
-		case 'page':
-		case 'media':
-		{
-			if ($post_type == null)
-			{
-				if ($type == 'media')
-				{
-					$post_type = 'attachment';
-				}
-			}
-			else
-			{
-				$post_type = explode(',', $post_type);
-				
-				if (count($post_type) == 1)
-				{
-					$post_type = $post_type[0];
-				}
-			}
-			
-			if ($object == null && $id != null)
-			{
-				$object = get_post($id);
-			}
-		
-			if ($name == null && $slug != null)
-			{
-				$name = $slug;
-			}
-			
-			if ($object == null && $name != null)
-			{
-				$name_key = $type == 'page' ? 'pagename' : 'name';
-				$posts = null;
-				
-				// Prioritize regular posts
-				if ($type == 'post' && $post_type == null)
-				{
-					$posts = get_posts(array($name_key => $name, 'numberposts' => 1, 'post_type' => 'post'));
-				}
-				
-				if ($post_type == null)
-				{
-					$post_type = get_post_types();
-					
-					unset($post_type['revision']);
-					unset($post_type['nav_menu_item']);
-				}
-				
-				if ($posts == null)
-				{
-					$posts = get_posts(array($name_key => $name, 'numberposts' => 1, 'post_type' => $post_type));
-				}
-				
-				if ($posts != null)
-				{
-					$object = $posts[0];
-				}
-			}
-			
-			if ($object == null && $title != null)
-			{
-				if ($post_type == null)
-				{
-					$post_type = $type;
-				}
-				
-				if (is_array($post_type))
-				{
-					global $wpdb;
-					
-					$post_type = array_values($post_type);
-					$count = count($post_type);
-					$params = array($title);
-					$params = array_merge($params, $post_type);
-					$db_query = 'SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_type IN (' . str_repeat('%s,', $count - 1) . '%s)';
-					$page = $wpdb->get_var($wpdb->prepare($db_query, $params));
-					
-					if ($page)
-					{
-						$object = get_page($page, OBJECT);
-					}
-				}
-				else
-				{
-					$object = get_page_by_title($title, OBJECT, $post_type);
-				}
-			}
-			
-			if ($object != null)
-			{
-				$item['id'] = $object->ID;
-				$item['title'] = apply_filters('the_title', $object->post_title, $object->ID);
-				$item['link'] = apply_filters('the_permalink', get_permalink($object->ID), $object->ID);
-				$item['tip'] = $item['title'];
-				$item['abstract'] = apply_filters('the_excerpt', $object->post_excerpt, $object->ID);
-				
-				if ($pull_content)
-				{
-					$post_content = $object->post_content;
-					$post_content = apply_filters('the_content', $object->post_content, $object->ID);
-					$item['content'] = $post_content;
-				}
-				
-				$thumb_id = $type == 'media' ? $object->ID : get_post_thumbnail_id($object->ID);
-				
-				if ($thumb_id != null)
-				{
-					if ($size == null)
-					{
-						$size = 'thumbnail';
-					}
-					
-					$thumb = wp_get_attachment_image_src($thumb_id, $size);
-					$alt = $item['title'];
-					
-					if ($thumb != null)
-					{
-						$item['thumbnail_src'] = $thumb[0];
-						$item['thumbnail_width'] = $thumb[1];
-						$item['thumbnail_height'] = $thumb[2];
-						$item['thumbnail'] = '<img class="synved-shortcode-thumbnail" alt="' . esc_attr($alt) . '" src="' . esc_url($item['thumbnail_src']) . '" width="' . $item['thumbnail_width'] . '" height="' . $item['thumbnail_height'] . '" />';
-					}
-				}
-			}
-			
-			break;
-		}
-		case 'category':
-		case 'tag':
-		case 'term':
-		{
-			if ($taxonomy == null)
-			{
-				$taxonomy = $type == 'tag' ? 'post_tag' : $type;
-			}
-			
-			if ($object == null && $id != null)
-			{
-				$object = get_term_by('id', $id, $taxonomy);
-			}
-		
-			if ($object == null && $slug != null)
-			{
-				$object = get_term_by('slug', $slug, $taxonomy);
-			}
-		
-			if ($name == null && $title != null)
-			{
-				$name = $title;
-			}
-		
-			if ($object == null && $name != null)
-			{
-				$object = get_term_by('name', $name, $taxonomy);
-			}
-			
-			if ($object != null)
-			{
-				$object = sanitize_term($object, $taxonomy);
-				
-				$item['id'] = $object->term_id;
-				$item['title'] = $object->name;
-				$item['link'] = get_term_link($object);
-				$item['tip'] = $object->description;
-				$item['abstract'] = $object->description;
-			}
-			
-			break;
-		}
-		case 'user':
-		{
-			if ($object == null && $id != null)
-			{
-				$object = get_user_by('id', $id);
-			}
-		
-			if ($object == null && $slug != null)
-			{
-				$object = get_user_by('slug', $slug);
-			}
-		
-			if ($name == null && $title != null)
-			{
-				$name = $title;
-			}
-		
-			if ($object == null && $name != null)
-			{
-				$object = get_user_by('login', $name);
-			}
-		
-			if ($object == null && $email != null)
-			{
-				$object = get_user_by('email', $email);
-			}
-			
-			if ($object != null)
-			{
-				$item['id'] = $object->ID;
-				$item['title'] = $object->display_name;
-				$item['link'] = get_author_posts_url($object->ID);
-				$item['tip'] = null;
-				$item['abstract'] = $object->user_description;
-				
-				if (is_array($size))
-				{
-					$size = (int) $size[0];
-				}
-				
-				if ($size == null)
-				{
-					$size = (int) intval(get_option('thumbnail_size_w'));
-				}
-				
-				$thumb = get_avatar($object->ID, $size);
-				
-				if ($thumb != null)
-				{
-					$match = null;
-					preg_match('/src=("|\')(([^"\']|(?!\\1))+)\\1/i', $thumb, $match);
-					
-					$item['thumbnail_src'] = $match[2];
-					$item['thumbnail_width'] = $size;
-					$item['thumbnail_height'] = $size;
-					$item['thumbnail'] = '<img class="synved-shortcode-thumbnail" src="' . esc_url($item['thumbnail_src']) . '" width="' . $item['thumbnail_width'] . '" height="' . $item['thumbnail_height'] . '" />';
-				}
-			}
-			
-			break;
-		}
-	}
-	
-	if ($item != null)
-	{
-		if ($edit != null)
-		{
-			$link = $item['link'];
-			$edit_list = explode(',', $edit);
-			
-			if ($edit_list != null)
-			{
-				foreach ($edit_list as $edit_item)
-				{
-					$edit_item = trim($edit_item);
-					$edit_parts = explode('=', $edit_item);
-					$edit_name = $edit_parts[0];
-					$edit_value = isset($edit_parts[1]) ? $edit_parts[1] : null;
-				
-					if ($edit_name[0] == '-')
-					{
-						$edit_name = substr($edit_name, 1);
-						$link = remove_query_arg($edit_name, $link);
-					}
-					else
-					{
-						if ($edit_name[0] == '+')
-						{
-							$edit_name = substr($edit_name, 1);
-						}
-					
-						$link = add_query_arg($edit_name, $edit_value, $link);
-					}
-				}
-			}
-			
-			$item['link'] = $link;
-		}
-		
-		if ($tip !== null)
-		{
-			$item['tip'] = $tip;
-		}
-		
-		if ($abstract !== null)
-		{
-			$item['abstract'] = $abstract;
-		}
-		
-		$item['class'] = $class;
-		
-		if ($object != null)
-		{
-			$item['object'] = $object;
-		}
-		
-		$item['query'] = $atts;
-		
-		return apply_filters('synved_shortcode_data_get_display_item', $item);
-	}
-	
-	return null;
 }
 
 function synved_shortcode_recurse($code, $name, $id = null)
@@ -1241,6 +903,10 @@ function synved_shortcode_link_register($type, $default = null)
 		{
 			$default = '[%%_synved_name%% id="1"]';
 		}
+		else if ($type == 'common')
+		{
+			$default = '[%%_synved_name%% name="home"]' . __('Home Page', 'synved-shortcode') . '[/%%_synved_name%%]';
+		}
 		else
 		{
 			$default = '[%%_synved_name%% name="unique-name"]' . __('Link Text', 'synved-shortcode') . '[/%%_synved_name%%]';
@@ -1281,6 +947,29 @@ function synved_shortcode_link_register($type, $default = null)
 		case 'user':
 		{
 			$params['email'] = __('Specify the user by his e-mail, has lower priority over the other parameters', 'synved-shortcode');
+			
+			break;
+		}
+		case 'common':
+		{
+			$type_label = 'common built-in page';
+			$desc = 'common built-in page';
+			
+			if (substr($params['name'], -1) != '.')
+			{
+				$params['name'] .= '.';
+			}
+			
+			if (substr($params['slug'], -1) != '.')
+			{
+				$params['slug'] .= '.';
+			}
+			
+			$params['name'] .= ' ' . __('Can be one of home, site, admin, network_home, network_site, network_admin, content, plugins, upload, upload_base, template_base, stylesheet, stylesheet_base', 'synved-shortcode');
+			$params['slug'] .= ' ' . __('This is the same as the "name" parameter.', 'synved-shortcode');
+			
+			$params['path'] = __('Specify what path to append to the built-in link URL, works for home, site, admin, network_home, network_site, network_admin, content, plugins', 'synved-shortcode');
+			$params['scheme'] = __('Specify what scheme to use for the built-in link URL', 'synved-shortcode');
 			
 			break;
 		}
@@ -1441,6 +1130,7 @@ Section Content 2.
 	synved_shortcode_link_register('tag');
 	synved_shortcode_link_register('term');
 	synved_shortcode_link_register('user');
+	synved_shortcode_link_register('common');
 }
 
 ?>

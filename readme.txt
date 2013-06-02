@@ -3,7 +3,7 @@ Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
 Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, permalink, permalinks, time, author, vcard, box, boxes, icons, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks, filter
 Requires at least: 3.1
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -118,6 +118,14 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.5.4 =
+* Added link_common shortcode to link to common built-in WordPress pages
+
+= 1.5.3 =
+* Add ability to collapse all sections by default
+* Ensure log function is not called if not present
+* Fix styles for 2012 theme
 
 = 1.5.2 =
 * Prevent some conflicts with other plugins
