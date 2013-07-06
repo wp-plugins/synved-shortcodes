@@ -119,6 +119,11 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.5.5 =
+* Fix descriptions and added link to Settings from plugins list
+* Add image_link variable to visual item data 
+* Replace span for divs in certain block-level shortcodes
+
 = 1.5.4 =
 * Added link_common shortcode to link to common built-in WordPress pages
 

@@ -3,7 +3,7 @@
 Module Name: Synved Option
 Description: Easily add options to your themes or plugins with as little or as much coding as you want. Just create an array of your options, the rest is automated. If you need extra flexibility you can then use the powerful API provided to achieve any level of customization.
 Author: Synved
-Version: 1.4.1
+Version: 1.4.2
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -25,8 +25,8 @@ include_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'synved-option-setting.ph
 
 
 define('SYNVED_OPTION_LOADED', true);
-define('SYNVED_OPTION_VERSION', 100040001);
-define('SYNVED_OPTION_VERSION_STRING', '1.4.1');
+define('SYNVED_OPTION_VERSION', 100040002);
+define('SYNVED_OPTION_VERSION_STRING', '1.4.2');
 
 
 $synved_option = array();
@@ -852,6 +852,39 @@ function synved_option_wp_upgrader_source_selection($source, $remote_source, $ob
 	return $source;
 }
 
+function synved_option_wp_plugin_action_links($links, $file)
+{
+	global $synved_option_list;
+	
+	if ($synved_option_list != null)
+	{
+		foreach ($synved_option_list as $id => $list)
+		{
+			$items = synved_option_item_list($id);
+			$pages = $synved_option_list[$id]['pages'];
+			
+			foreach ($pages as $name => $page)
+			{
+				$link_label = synved_option_item_property($page, 'link-label');
+				$link_target = synved_option_item_property($page, 'link-target');
+				$link_url = synved_option_page_link_url($id, $name, $item);
+				
+				if ($link_label == null)
+				{
+					$link_label = __('Settings');
+				}
+				
+				if ($file == $link_target) 
+				{
+					$links[] = '<a href="' . $link_url . '">' . $link_label . '</a>';
+				}
+			}
+		}
+	}
+
+	return $links;
+}
+
 function synved_option_admin_enqueue_scripts()
 {
 	$uri = synved_option_path_uri();
@@ -941,6 +974,7 @@ function synved_option_ajax()
 add_action('after_setup_theme', 'synved_option_wp_after_setup_theme');
 add_action('init', 'synved_option_wp_init');
 add_filter('upgrader_source_selection', 'synved_option_wp_upgrader_source_selection', 9, 3);
+add_filter('plugin_action_links', 'synved_option_wp_plugin_action_links', 10, 2);
 
 if (is_admin())
 {

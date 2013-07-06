@@ -170,6 +170,13 @@ function synved_shortcode_data_get_display_item($atts, $type = null)
 						$item['thumbnail_height'] = $thumb[2];
 						$item['thumbnail'] = '<img class="synved-shortcode-thumbnail" alt="' . esc_attr($alt) . '" src="' . esc_url($item['thumbnail_src']) . '" width="' . $item['thumbnail_width'] . '" height="' . $item['thumbnail_height'] . '" />';
 					}
+					
+					$thumb = wp_get_attachment_image_src($thumb_id, 'full');
+					
+					if ($thumb != null)
+					{
+						$item['image_link'] = $thumb[0];
+					}
 				}
 			}
 			
