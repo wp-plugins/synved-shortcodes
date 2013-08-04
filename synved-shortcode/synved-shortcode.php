@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5.5
+Version: 1.5.6
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050005);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.5');
+define('SYNVED_SHORTCODE_VERSION', 100050006);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.6');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -976,7 +976,7 @@ function synved_shortcode_link_register($type, $default = null)
 	}
 	
 	$params['size'] = __('Specify what size to select for the thumbnail, can be named size or numeric, e.g. "thumbnail" or "100x60"', 'synved-shortcode');
-	$params['template'] = esc_html(__('Specify what template to use to display the link, possible values are default,url,card,card-full,custom. You can use template %%%%tags%%%%, where "tags" can be link,tip,abstract,class,body,item_PROPERTY and much more', 'synved-shortcode'));
+	$params['template'] = esc_html(__('Specify what template to use to display the link, possible values are default,url,card,card-full,custom. You can use template %%%%tags%%%%, where "tags" can be link, tip, abstract, class, body, item_thumbnail_src, item_thumbnail_width, item_thumbnail_height, item_image_link, query_id, query_name and much more', 'synved-shortcode'));
 	$params['edit'] = __('Specify how to edit the URL for the link, you can add parameters in the form of name=value,name2=value2 or remove them using -name,-name2', 'synved-shortcode');
 	
 	//$desc = __('a', 'synved-shortcode') . ' ' . $desc;

@@ -29,6 +29,7 @@ $synved_shortcode_options = array(
 					'type' => 'addon',
 					'target' => SYNVED_SHORTCODE_ADDON_PATH,
 					'folder' => 'skin-slickpanel',
+					'module' => 'synved-shortcode',
 					'style' => 'addon-important',
 					'label' => __('SlickPanel Skin', 'synved-shortcode'), 
 					'tip' => synved_option_callback('synved_shortcode_option_skin_slickpanel_tip', __('Click the button to install the SlickPanel skin, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-slickpanel-skin/">here</a>.', 'synved-shortcode'))
@@ -37,6 +38,7 @@ $synved_shortcode_options = array(
 					'type' => 'addon',
 					'target' => SYNVED_SHORTCODE_ADDON_PATH,
 					'folder' => 'extra-presets',
+					'module' => 'synved-shortcode',
 					'style' => 'addon-important',
 					'label' => __('Extra Presets', 'synved-shortcode'), 
 					'tip' => synved_option_callback('synved_shortcode_option_addon_extra_presets_tip', __('Click the button to install the "Extra Presets" addon, get it <a target="_blank" href="http://synved.com/product/wordpress-shortcodes-extra-presets/">here</a>.', 'synved-shortcode'))
@@ -445,6 +447,11 @@ function synved_shortcode_ajax_callback()
 						}
 						
 						$title = $tip != null ? (' title="' . esc_attr($tip) . '"') : null;
+						
+						if (!isset($list_html[$group_name]))
+						{
+							$list_html[$group_name] = null;
+						}
 						
 						$list_html[$group_name] .= '
 <option value="' . esc_attr($shortcode_name) . '"' . $title . '>' . $label . '</option>';

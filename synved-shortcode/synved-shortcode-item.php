@@ -393,6 +393,11 @@ function synved_shortcode_item_preset_add($name, $preset, $preset_name = null, $
 			$preset_meta['tip'] = null;
 		}
 		
+		if (!isset($preset_meta['group']))
+		{
+			$preset_meta['group'] = null;
+		}
+		
 		$preset = synved_shortcode_item_prepare_text($name, $preset);
 		$preset_meta['content'] = $preset;
 		

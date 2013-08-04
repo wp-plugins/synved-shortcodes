@@ -119,6 +119,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.5.6 =
+* Added template parameters in the link parameters documentation
+* Fix a few notices for undefined indexes
+
 = 1.5.5 =
 * Fix descriptions and added link to Settings from plugins list
 * Add image_link variable to visual item data 
