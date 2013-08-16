@@ -217,20 +217,32 @@ function synved_shortcode_admin_enqueue_scripts()
 	wp_register_style('synved-shortcode-admin', $uri . '/style/admin.css', array('thickbox', 'wp-pointer', 'wp-jquery-ui-dialog'), '1.0');
 	wp_register_style('jquery-chosen', $uri . '/chosen/chosen.css', false, '0.9.8');
 	
-	wp_enqueue_style('synved-shortcode-jquery-ui');
-	wp_enqueue_style('farbtastic');
-	wp_enqueue_style('jquery-chosen');
-	wp_enqueue_style('synved-shortcode-layout');
-	wp_enqueue_style('synved-shortcode-jquery-ui-custom');
-	wp_enqueue_style('synved-shortcode-admin');
+	$file = isset($GLOBALS['pagenow']) ? $GLOBALS['pagenow'] : null;
+	$page = isset($_GET['page']) ? $_GET['page'] : null;
+	$enqueue = false;
 	
-	wp_enqueue_script('plupload-all');
-	wp_enqueue_script('media-upload');
-	wp_enqueue_script('suggest');
-	wp_enqueue_script('thickbox');
-	wp_enqueue_script('farbtastic');
-	wp_enqueue_script('jquery-chosen');
-	wp_enqueue_script('synved-shortcode-script-admin');
+	if ($file == 'post.php' || ($file == 'options-general.php' && $page == synved_option_name_default('synved_shortcode')))
+	{
+		$enqueue = true;
+	}
+	
+	if ($enqueue)
+	{
+		wp_enqueue_style('synved-shortcode-jquery-ui');
+		wp_enqueue_style('farbtastic');
+		wp_enqueue_style('jquery-chosen');
+		wp_enqueue_style('synved-shortcode-layout');
+		wp_enqueue_style('synved-shortcode-jquery-ui-custom');
+		wp_enqueue_style('synved-shortcode-admin');
+	
+		wp_enqueue_script('plupload-all');
+		wp_enqueue_script('media-upload');
+		wp_enqueue_script('suggest');
+		wp_enqueue_script('thickbox');
+		wp_enqueue_script('farbtastic');
+		wp_enqueue_script('jquery-chosen');
+		wp_enqueue_script('synved-shortcode-script-admin');
+	}
 }
 
 function synved_shortcode_admin_print_styles()
