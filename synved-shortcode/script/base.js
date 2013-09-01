@@ -22,7 +22,16 @@ function synved_shortcode_apply_all(context)
 	
 	jQuery('.synved-section-list', context).removeClass('synved-section-list-nojs').each(function() {
 		var jthis = jQuery(this);
-		var params = { autoHeight: false, navigation : true };
+		var params = { autoHeight: false, navigation : true, heightStyle: 'content' };
+		
+		if (jthis.hasClass('synved-sections-height-fill'))
+		{
+			params.heightStyle = 'fill';
+		}
+		else if (jthis.hasClass('synved-sections-height-auto'))
+		{
+			params.heightStyle = 'auto';
+		}
 		
 		if (jthis.hasClass('synved-sections-collapse'))
 		{

@@ -119,6 +119,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.5.8 =
+* Fix sections height problem introduced in newest jQuery UI libraries
+* Add parameter to control sections height
+
 = 1.5.7 =
 * Fix for potential conflicts with some other plugins
 
