@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.5.8
+Version: 1.6.0
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100050008);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.5.8');
+define('SYNVED_SHORTCODE_VERSION', 100060000);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.0');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -735,11 +735,17 @@ function synved_shortcode_column_register($type, $default = null)
 
 function synved_shortcode_do_box($atts, $content = null, $code = '', $type = null)
 {
-	$atts_def = array();
+	$atts_def = array('align' => '');
 	$atts = shortcode_atts($atts_def, $atts);
 	
 	$typeclass = 'synved-box-' . $type;
 	$class = $typeclass;
+	$align = $atts['align'];
+	
+	if ($align != null)
+	{
+		$class .= ' synved-box-message-align-' . $align;
+	}
 	
 	return '<div class="snvdshc"><div class="synved-box-message' . ($class ? (' ' . $class) : null) . '">' . synved_shortcode_do_shortcode($content, 'box_' . $type) . '</div></div>';
 }
@@ -767,25 +773,27 @@ function synved_shortcode_box_register($type, $default = null)
 	$type_label = str_replace(array('-', '_'), ' ', $type);
 	$desc = null;
 	
-	switch ($type)
+	if (in_array(strtolower($type[0]), array('a', 'e', 'i', 'o', 'u')))
 	{
-		case 'error':
-		case 'info':
-		{
-			$desc = __('an', 'synved-shortcode') . ' ' . $type_label . ' ' . __('message', 'synved-shortcode');
-			
-			break;
-		}
-		default:
-		{
-			$desc = __('a', 'synved-shortcode') . ' ' . $type_label . ' ' . __('message', 'synved-shortcode');
-			
-			break;
-		}
+		$desc .= __('an', 'synved-shortcode');
+	}
+	else
+	{
+		$desc .= __('a', 'synved-shortcode');
+	}
+	
+	$desc .= ' ' . $type_label . ' ' . __('message', 'synved-shortcode');
+	
+	if ($type == 'plain')
+	{
+		$desc .= __('. The box has no special decorations or icons.', 'synved-shortcode');
 	}
 	
 	$help = array(
-		'tip' => __('Creates a message box displaying', 'synved-shortcode') . ' ' . $desc
+		'tip' => __('Creates a message box displaying', 'synved-shortcode') . ' ' . $desc,
+		'parameters' => array(
+			'align' => __('Determines the text alignment. Can be either left, right or center.', 'synved-shortcode'), 
+		)
 	);
 	
 	synved_shortcode_item_help_set($name, $help);
@@ -1133,6 +1141,7 @@ Section Content 2.
 	synved_shortcode_box_register('info');
 	synved_shortcode_box_register('warning');
 	synved_shortcode_box_register('error');
+	synved_shortcode_box_register('plain');
 
 	synved_shortcode_link_register('post');
 	synved_shortcode_link_register('page');

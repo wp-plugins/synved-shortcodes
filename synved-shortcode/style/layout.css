@@ -99,6 +99,23 @@ background-color:#ddc0c0;
 background-image:url('../image/box/error.png');
 color:#5f3634;
 }
+.synved-box-message.synved-box-plain {
+padding-left: 20px;
+-moz-border-radius:0px;
+border-radius: 0px;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+.synved-box-message-align-left {
+text-align: left;
+}
+.synved-box-message-align-right {
+text-align: right;
+}
+.synved-box-message-align-center {
+text-align: center;
+}
 
 .synved-link-template-card,
 .synved-link-template-card:link,
