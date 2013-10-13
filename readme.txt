@@ -119,6 +119,11 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.1 =
+* Fixed some issues on certain windows hosting
+* Fixed installation of addons in certain peculiar environments
+* Minor adjustments
+
 = 1.6.0 =
 * Added "plain" message boxes to display simple messages
 * Added alignment parameter to all message boxes
