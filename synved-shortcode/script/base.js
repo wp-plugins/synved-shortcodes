@@ -5,8 +5,11 @@ function synved_shortcode_apply_all(context)
 {
 	if (context == undefined || context == null)
 		context = document;
-		
-	jQuery('.noselect', context).unselectable();
+	
+	try {
+		jQuery('.noselect', context).unselectable();
+	}
+	catch (ex) { }
 	
 	jQuery('.synved-section-list', context).each(function() {
 		var sections = jQuery(this);

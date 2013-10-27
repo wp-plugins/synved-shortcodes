@@ -119,6 +119,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.2 =
+* Fixed potential JavaScript error in rare cases
+* Misc adjustments
+
 = 1.6.1 =
 * Fixed some issues on certain windows hosting
 * Fixed installation of addons in certain peculiar environments

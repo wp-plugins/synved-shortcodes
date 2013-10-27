@@ -6,6 +6,7 @@ $synved_shortcode_options = array(
 	'title' => 'WordPress Shortcodes',
 	'tip' => synved_option_callback('synved_shortcode_page_settings_tip'),
 	'link-target' => plugin_basename(synved_plugout_module_path_get('synved-shortcode', 'provider')),
+	'render-fragment' => 'synved_shortcode_page_render_fragment',
 	'sections' => array(
 		'customize_look' => array(
 			'label' => __('Customize Look', 'synved-shortcode'), 
@@ -72,6 +73,16 @@ function synved_shortcode_page_settings_tip($tip, $item)
 	}
 	
 	return $tip;
+}
+
+function synved_shortcode_page_render_fragment($fragment, $out, $params)
+{
+	if ($fragment == 'page-submit-tail')
+	{
+		$out .= '<div style="clear:both; margin-top: -12px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review!</a></div>';
+	}
+	
+	return $out;
 }
 
 function synved_shortcode_section_customize_look_tip($tip, $item)
@@ -621,7 +632,7 @@ function synved_shortcode_ajax_callback()
 				if (!synved_option_addon_installed('synved_shortcode', 'addon_extra_presets'))
 				{
 					$response_html .= '
-<a target="_blank" href="http://synved.com/product/wordpress-shortcodes-extra-presets/" style="display:block;text-align:center;font-weight:bold;">GET 30+ EXTRA AMAZING PRESETS!</a>';
+<a target="_blank" href="http://synved.com/product/wordpress-shortcodes-extra-presets/" style="display:block;text-align:right;font-weight:bold;">GET 30+ EXTRA AMAZING PRESETS!</a>';
 				}
 
 				$response_html .= '
@@ -712,6 +723,8 @@ function synved_shortcode_ajax_callback()
 				
 				$response_html .= '
 </div>';
+				
+				$response_html .= '<div style="clear:both;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review!</a></div>';
 
 				$response_html .= '
 </div>';
