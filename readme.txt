@@ -3,7 +3,7 @@ Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
 Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, permalink, permalinks, time, author, vcard, box, boxes, icons, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks, filter
 Requires at least: 3.1
-Tested up to: 3.6.1
+Tested up to: 3.7.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
