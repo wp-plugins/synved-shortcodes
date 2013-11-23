@@ -19,7 +19,7 @@ An amazing free set of great elements for your site: SEO-ready tabs, sections, b
 
 If you want to take it to the next level and hugely improve the appearance of the elements and make them look more professional, you might want to consider purchasing the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!").
 
-There are many different kinds of elements that cover for all your requirements. These include functionality for *User Interface creation*, *Layout management*, *Lists*, *Buttons*, *Message boxes*, *smart links* to easily link contents on your site without using full URLs but with IDs or names and a bunch of other useful tools.
+There are many different kinds of elements that cover for all your requirements. These include functionality for *User Interface creation*, *Layout management*, *Lists*, *Buttons*, *Message boxes*, *smart links* to easily link contents on your site without using full URLs but with IDs or names and a bunch of other useful tools such as the ability of adding hidden content in posts/pages, useful for making notes or comments.
 
 Just use the intuitive shortcode editor to create a message box, error box or warning message on your site. Or create multi-column layouts, a fancy button, a highly stylized link card, a list of items with icons (like a feature list), or combine multiple nested shortcodes to create for instance a list of links or a list of buttons and much more.
 
@@ -28,7 +28,7 @@ The shortcode editor presents a very intuitive and easy to use interface, with m
 The plugin offers all common jQuery UI functionality as well like jQuery UI Accordions, JQuery UI Tabs, jQuery UI buttons and so on. The UI tabs provide many different features including full SEO compatible selection of active tab without need for JavaScript.
 
 = Features =
-* 20+ shortcodes and different elements!
+* 21+ shortcodes and different elements!
 * Create tabs, sections/accordions, layout, lists, links, buttons and more!
 * Tabs are **SEO friendly** and work flawlessly without JavaScript!
 * Fully WordPress compliant, using latest standards
@@ -39,6 +39,7 @@ The plugin offers all common jQuery UI functionality as well like jQuery UI Acco
 * Link shortcodes make importing and exporting content across sites much more reliable
 * Links support a simple to use but *powerful template system* to tweak what is displayed and how it looks
 * The custom template system makes it extremely easy to create custom **author and post cards** with thumbnails
+* Shortcode to hide content for adding comments and notes to posts and pages
 * Many parameters for ultimate customization
 * All parameters are documented in detail in the shortcode editor
 * Many useful lightweight icons provided built-in
@@ -118,6 +119,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.3 =
+* Added hide shortcode, to add hidden notes and comments in posts and pages
 
 = 1.6.2 =
 * Fixed potential JavaScript error in rare cases
