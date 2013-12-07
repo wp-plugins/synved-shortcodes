@@ -120,6 +120,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.4 =
+* Fixed button not appearing on "add post" pages
+
 = 1.6.3 =
 * Added hide shortcode, to add hidden notes and comments in posts and pages
 

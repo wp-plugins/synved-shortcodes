@@ -79,7 +79,7 @@ function synved_shortcode_page_render_fragment($fragment, $out, $params)
 {
 	if ($fragment == 'page-submit-tail')
 	{
-		$out .= '<div style="clear:both; margin-top: -12px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review!</a></div>';
+		$out .= '<div style="clear:both; margin-top: -12px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review! Otherwise, only users with negative experiences will review, decreasing the rating and hindering future development.</a></div>';
 	}
 	
 	return $out;
@@ -232,7 +232,7 @@ function synved_shortcode_admin_enqueue_scripts()
 	$page = isset($_GET['page']) ? $_GET['page'] : null;
 	$enqueue = false;
 	
-	if ($file == 'post.php' || ($file == 'options-general.php' && $page == synved_option_name_default('synved_shortcode')))
+	if ($file == 'post.php' || $file == 'post-new.php' || ($file == 'options-general.php' && $page == synved_option_name_default('synved_shortcode')))
 	{
 		$enqueue = true;
 	}
@@ -724,7 +724,7 @@ function synved_shortcode_ajax_callback()
 				$response_html .= '
 </div>';
 				
-				$response_html .= '<div style="clear:both;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review!</a></div>';
+				$response_html .= '<div style="clear:both;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review! Otherwise, only users with negative experiences will review, decreasing the rating and hindering future development.</a></div>';
 
 				$response_html .= '
 </div>';
