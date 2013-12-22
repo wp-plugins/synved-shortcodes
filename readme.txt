@@ -120,6 +120,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.5 =
+* Fixed shortcode editor not displaying correctly in certain cases
+* Minor adjustments
+
 = 1.6.4 =
 * Fixed button not appearing on "add post" pages
 

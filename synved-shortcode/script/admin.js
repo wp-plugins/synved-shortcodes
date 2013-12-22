@@ -98,7 +98,7 @@ var SynvedShortcode = {
 		{
 			this.reset();
 			
-			tb_show('WordPress Shortcodes by Synved', SynvedShortcodeVars.ajaxurl);
+			tb_show('WordPress Shortcodes by Synved', '#TB_inline');
 			var tb = jQuery("#TB_window");
 
 			if (tb)
