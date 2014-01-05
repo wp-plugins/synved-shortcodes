@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.5
+Version: 1.6.6
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060005);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.5');
+define('SYNVED_SHORTCODE_VERSION', 100060006);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.6');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1020,6 +1020,92 @@ function synved_shortcode_do_hide($atts, $content = null, $code = '', $type = nu
 	return '';
 }
 
+function synved_shortcode_do_condition($atts, $content = null, $code = '', $type = null)
+{
+	$atts_def = array('check' => '');
+	$atts = shortcode_atts($atts_def, $atts);
+	
+	$check = $atts['check'];
+	$success = false;
+	
+	if ($check != null)
+	{
+		$check = strtolower($check);
+		
+		switch ($check)
+		{
+			case 'is_user_logged_in':
+			{
+				$success = is_user_logged_in();
+				
+				break;
+			}
+			case 'is_user_admin':
+			{
+				$success = current_user_can('administrator');
+				
+				break;
+			}
+		}
+	}
+	
+	if ($success)
+	{
+		return synved_shortcode_do_shortcode($content, 'condition');
+	}
+	
+	return null;
+}
+
+function synved_shortcode_condition_register($type, $default = null)
+{
+	$name = $type;
+	$type_label = synved_shortcode_item_label_create($type);
+	$cb = create_function('$atts, $content = null, $code = \'\'', 'return synved_shortcode_do_condition($atts, $content, $code, \'' . $type . '\');');
+	
+	synved_shortcode_add($type, $cb, false, __('Condition', 'synved-shortcode') . ' ' . $type_label);
+	
+	if ($default == null)
+	{
+		$default = '[%%_synved_name%% check="false"]';
+	}
+	
+	synved_shortcode_item_group_set($name, 'condition');
+	
+	if ($default != null)
+	{
+		synved_shortcode_item_default_set($name, $default);
+	}
+	
+	$type_label = str_replace(array('-', '_'), ' ', $type);
+	$desc = null;
+	
+	if (in_array(strtolower($type[0]), array('a', 'e', 'i', 'o', 'u')))
+	{
+		$desc .= __('an', 'synved-shortcode');
+	}
+	else
+	{
+		$desc .= __('a', 'synved-shortcode');
+	}
+	
+	$desc .= ' ' . $type_label . ' ' . __('condition', 'synved-shortcode');
+	
+	if ($type == 'plain')
+	{
+		$desc .= __('. The box has no special decorations or icons.', 'synved-shortcode');
+	}
+	
+	$help = array(
+		'tip' => __('Creates a message box displaying', 'synved-shortcode') . ' ' . $desc,
+		'parameters' => array(
+			'align' => __('Determines the text alignment. Can be either left, right or center.', 'synved-shortcode'), 
+		)
+	);
+	
+	synved_shortcode_item_help_set($name, $help);
+}
+
 function synved_shortcode_add($name, $cb, $internal = false, $label = null, $default = null)
 {
 	global $synved_shortcode;
@@ -1164,6 +1250,16 @@ Section Content 2.
 	synved_shortcode_item_help_set('hide', array(
 		'tip' => __('Creates a block of hidden content. The content will never be presented onto the page. Useful for comments and notes.', 'synved-shortcode'),
 		'parameters' => array(
+		)
+	));
+	
+	synved_shortcode_add('condition', 'synved_shortcode_do_condition');
+	synved_shortcode_item_default_set('condition', 
+'[%%_synved_name%% check="is_user_logged_in"]Test Content.[/%%_synved_name%%]');
+	synved_shortcode_item_help_set('condition', array(
+		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
+		'parameters' => array(
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in,is_user_admin', 'synved-shortcode')
 		)
 	));
 }
