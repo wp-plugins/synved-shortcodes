@@ -44,6 +44,7 @@ The plugin also offers conditional shortcodes that allow to render content only 
 * Shortcode to hide content for adding comments and notes to posts and pages
 * Many parameters for ultimate customization
 * All parameters are documented in detail in the shortcode editor
+* **Conditional** shortcodes to show/hide content based on specific checks or conditions
 * Many useful lightweight icons provided built-in
 * Easy to adjust the look of shortcodes with built-in custom CSS field
 * Optional slick and [professional skin available](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/)
@@ -121,6 +122,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.7 =
+* Added 2 extra conditional checks
+* Misc adjustments
 
 = 1.6.6 =
 * Added initial implementation of conditional shortcodes, to insert conditional content
