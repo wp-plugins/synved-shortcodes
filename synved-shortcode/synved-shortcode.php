@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.7
+Version: 1.6.8
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060007);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.7');
+define('SYNVED_SHORTCODE_VERSION', 100060008);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.8');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1028,6 +1028,18 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 	$check = $atts['check'];
 	$success = false;
 	
+	$id = get_the_ID();
+	$the_post = null;
+	
+	if ($id == null)
+	{
+		global $post;
+	
+		$id = $post->ID;
+	}
+	
+	$the_post = get_post($id);
+	
 	if ($check != null)
 	{
 		$check = strtolower($check);
@@ -1055,6 +1067,12 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 			case 'is_user_author':
 			{
 				$success = current_user_can('author');
+				
+				break;
+			}
+			case 'is_post_protected':
+			{
+				$success = ($the_post && !empty($the_post->post_password));
 				
 				break;
 			}
@@ -1271,7 +1289,7 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in,is_user_admin,is_user_editor,is_user_author', 'synved-shortcode')
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, is_post_protected', 'synved-shortcode')
 		)
 	));
 }
