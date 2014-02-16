@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.8
+Version: 1.6.9
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060008);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.8');
+define('SYNVED_SHORTCODE_VERSION', 100060009);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.9');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1022,10 +1022,11 @@ function synved_shortcode_do_hide($atts, $content = null, $code = '', $type = nu
 
 function synved_shortcode_do_condition($atts, $content = null, $code = '', $type = null)
 {
-	$atts_def = array('check' => '');
+	$atts_def = array('check' => '', 'param_1' => '');
 	$atts = shortcode_atts($atts_def, $atts);
 	
 	$check = $atts['check'];
+	$param_1 = $atts['param_1'];
 	$success = false;
 	
 	$id = get_the_ID();
@@ -1067,6 +1068,12 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 			case 'is_user_author':
 			{
 				$success = current_user_can('author');
+				
+				break;
+			}
+			case 'user_can':
+			{
+				$success = current_user_can($param_1);
 				
 				break;
 			}
@@ -1289,7 +1296,8 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, is_post_protected', 'synved-shortcode')
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected', 'synved-shortcode'),
+			'param_1' => __('When specifying check of "user_can" param_1 specifies the user capability', 'synved-shortcode')
 		)
 	));
 }
