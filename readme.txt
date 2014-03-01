@@ -27,7 +27,7 @@ The shortcode editor presents a very intuitive and easy to use interface, with m
 
 The plugin offers all common jQuery UI functionality as well like jQuery UI Accordions, JQuery UI Tabs, jQuery UI buttons and so on. The UI tabs provide many different features including full SEO compatible selection of active tab without need for JavaScript.
 
-The plugin also offers conditional shortcodes that allow to render content only based on certain conditions, such as only if the user is logged in or if the user is an administrator, an editor, author or has a custom capability or if the current post is password protected.
+The plugin also offers conditional shortcodes that allow to render content only based on certain conditions, such as only if the user is logged in or if the user is an administrator, an editor, author or has a custom capability or if the current post is password protected or if it has a featured image (post thumbnail).
 
 = Features =
 * 25+ shortcodes and different elements!
@@ -122,6 +122,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.10 =
+* Added extra conditional check post_has_featured_image
 
 = 1.6.9 =
 * Added extra conditional check user_can for custom capability check
