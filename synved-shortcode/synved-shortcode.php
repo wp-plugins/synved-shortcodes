@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.10
+Version: 1.6.11
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060010);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.10');
+define('SYNVED_SHORTCODE_VERSION', 100060011);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.11');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1083,6 +1083,12 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 				
 				break;
 			}
+			case 'is_post_sticky':
+			{
+				$success = ($the_post && is_sticky($the_post->ID));
+				
+				break;
+			}
 			case 'post_has_featured_image':
 			{
 				$success = ($the_post && has_post_thumbnail($the_post->ID));
@@ -1302,7 +1308,7 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, post_has_featured_image', 'synved-shortcode'),
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, post_has_featured_image', 'synved-shortcode'),
 			'param_1' => __('When specifying check of "user_can" param_1 specifies the user capability', 'synved-shortcode')
 		)
 	));
