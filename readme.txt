@@ -123,6 +123,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.12 =
+* Fixed sections not opening correctly when using hash links
+
 = 1.6.11 =
 * Added extra conditional check is_post_sticky
 * Misc adjustments

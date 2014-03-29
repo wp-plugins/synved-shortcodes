@@ -45,6 +45,31 @@ function synved_shortcode_apply_all(context)
 		{
 			params.active = false;
 		}
+		else
+		{
+			var hash = window.location.hash;
+			var active = -1;
+			var index = 0;
+		
+			jthis.find('h4.section-title a').each(function() {
+				var tab = this;
+				if (tab.href != '' && tab.href[0] != '#') 
+				{
+					var tabHash = '#' + jQuery.param.fragment(tab.href);
+					
+					if (tabHash == hash)
+					{
+						active = index;
+					}
+				}
+				index++;
+			});
+			
+			if (active >= 0)
+			{
+				params.active = active;
+			}
+		}
 		
 		jthis.accordion(params);
 	});
