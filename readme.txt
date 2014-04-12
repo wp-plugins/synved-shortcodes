@@ -123,6 +123,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.13 =
+* Adjusted versioning typo
+
 = 1.6.12 =
 * Fixed sections not opening correctly when using hash links
 
