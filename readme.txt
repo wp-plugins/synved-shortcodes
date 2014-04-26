@@ -14,6 +14,8 @@ An amazing free set of great elements for your site: SEO-ready tabs, sections, b
 
 [WordPress Shortcodes](http://synved.com/wordpress-shortcodes/ "WordPress Shortcodes – beautiful elements to spice up your site") is a free WordPress plugin that brings an amazing set of beautiful and useful elements to your site. The plugin comes bundled with the full set of elements, all absolutely free of charge.
 
+Learn how you can use WordPress Shortcodes to [easily create import / export safe links to images and any other content](http://synved.com/blog/help/tutorials/wordpress-shortcodes-for-import-export-safe-urls/)!
+
 > #### Eager to get a functioning example of how the shortcodes elements look and feel?
 > Look at some basic example shortcodes on the [Stripefolio demo site](http://wpdemo.synved.com/stripefolio/shortcodes/). Note that the demo site only presents a limited subset, the best way to test the full set is to install the plugin and try it yourself!
 
@@ -122,6 +124,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.14 =
+* Added linked-image template for links, allows to easily create import/export safe links to media items
+* Misc adjustments
 
 = 1.6.13 =
 * Adjusted versioning typo
