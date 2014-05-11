@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.15 =
+* Added class attribute for list shortcode
+
 = 1.6.14 =
 * Added linked-image template for links, allows to easily create import/export safe links to media items
 * Misc adjustments

@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.14
+Version: 1.6.15
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060014);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.14');
+define('SYNVED_SHORTCODE_VERSION', 100060015);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.15');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -498,8 +498,10 @@ function synved_shortcode_do_button($atts, $content = null, $code = '')
 
 function synved_shortcode_do_list($atts, $content = null, $code = '')
 {
-	$atts_def = array('type' => null, 'icon' => null);
+	$atts_def = array('type' => null, 'class' => null, 'icon' => null);
 	$atts = shortcode_atts($atts_def, $atts);
+	
+	$class_attr = $atts['class'];
 	
 	$pattern = get_shortcode_regex();
 	$matches = array();
@@ -540,6 +542,11 @@ function synved_shortcode_do_list($atts, $content = null, $code = '')
 			$id = 'synved-list-' . $synved_shortcode['instance']['list']['count'];
 			$class = ' synved-item-list-' . $type;
 			$style_type = isset($styles[$type]) ? $styles[$type] : $type;
+			
+			if ($class_attr != null)
+			{
+				$class .= ' ' . $class_attr;
+			}
 			
 			$items_out = null;
 			$count = count($items);
@@ -1272,6 +1279,7 @@ Section Content 2.
 		'tip' => __('Creates a list of items in a layout', 'synved-shortcode'),
 		'parameters' => array(
 			'type' => __('Only for [list] element, specify a custom type, possible values are decimal,alpha,roman,latin,upper-alpha,lower-roman,upper-latin', 'synved-shortcode'),
+			'class' => __('Only for [list] element, specify a custom CSS class for the main list container', 'synved-shortcode'),
 			'icon' => __('Specify the default icon for [list], which overwrites <b>type</b>, or the individual icon for each [item], check the <a target="_blank" href="http://synved.com/blog/help/tutorial/wordpress-shortcodes-icons/">list of icons</a>', 'synved-shortcode'),
 			'tip' => __('Only for [item] element, specify a tooltip to show when hovering the item with the mouse', 'synved-shortcode'),
 			//'active' => __('Only for [section] element, specify whether the tab is the active tab (use active=yes)', 'synved-shortcode')
