@@ -32,7 +32,7 @@ The plugin offers all common jQuery UI functionality as well like jQuery UI Acco
 The plugin also offers conditional shortcodes that allow to render content only based on certain conditions, such as only if the user is logged in or if the user is an administrator, an editor, author or has a custom capability or if the current post is password protected or if it has a featured image (post thumbnail).
 
 = Features =
-* 25+ shortcodes and different elements!
+* 26+ shortcodes and different elements!
 * Create tabs, sections/accordions, layout, lists, links, buttons and more!
 * Tabs are **SEO friendly** and work flawlessly without JavaScript!
 * Fully WordPress compliant, using latest standards
@@ -124,6 +124,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.16 =
+* Added fifth column shortcode
 
 = 1.6.15 =
 * Added class attribute for list shortcode

@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.15
+Version: 1.6.16
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060015);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.15');
+define('SYNVED_SHORTCODE_VERSION', 100060016);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.16');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -711,6 +711,8 @@ function synved_shortcode_column_register($type, $default = null)
 		}
 		case 'third':
 		case 'fourth':
+		case 'quarter':
+		case 'fifth':
 		{
 			$desc = 'a ' . $type_label . ' of the width';
 			
@@ -1292,6 +1294,7 @@ Section Content 2.
 	synved_shortcode_column_register('half');
 	synved_shortcode_column_register('third');
 	synved_shortcode_column_register('quarter');
+	synved_shortcode_column_register('fifth');
 
 	synved_shortcode_box_register('success');
 	synved_shortcode_box_register('info');
