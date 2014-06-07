@@ -125,6 +125,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.17 =
+* Added extra conditional check match_query_argument
+* Misc adjustments
+
 = 1.6.16 =
 * Added fifth column shortcode
 
