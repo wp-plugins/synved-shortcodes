@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.17
+Version: 1.6.18
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060017);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.17');
+define('SYNVED_SHORTCODE_VERSION', 100060018);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.18');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1112,13 +1112,26 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 				break;
 			}
 			case 'match_query_argument':
+			case 'match_post_argument':
+			case 'match_request_argument':
 			{
+				$list = $_GET;
+				
+				if ($check == 'match_post_argument')
+				{
+					$list = $_POST;
+				}
+				else if ($check == 'match_request_argument')
+				{
+					$list = $_REQUEST;
+				}
+				
 				$arg_name = strtolower($param_1);
 				
 				if ($arg_name != null)
 				{
 					$arg_value = $param_2;
-					$query_value = isset($_GET[$arg_name]) ? $_GET[$arg_name] : null;
+					$query_value = isset($list[$arg_name]) ? $list[$arg_name] : null;
 				
 					$success = ($arg_value == $query_value);
 				}

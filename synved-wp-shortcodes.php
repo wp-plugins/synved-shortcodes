@@ -4,7 +4,7 @@ Plugin Name: WordPress Shortcodes
 Plugin URI: http://synved.com/wordpress-shortcodes/
 Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
 Author: Synved
-Version: 1.6.17
+Version: 1.6.18
 Author URI: http://synved.com/
 
 LEGAL STATEMENTS
