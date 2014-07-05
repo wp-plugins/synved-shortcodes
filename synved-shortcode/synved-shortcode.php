@@ -1,9 +1,9 @@
 <?php
 /*
 Module Name: Synved Shortcode
-Description: A complete set of WordPress shortcodes to add beautiful and useful elements that will spice up your site
+Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.18
+Version: 1.6.19
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060018);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.18');
+define('SYNVED_SHORTCODE_VERSION', 100060019);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.19');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1111,19 +1111,32 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 				
 				break;
 			}
+			case 'match_query':
 			case 'match_query_argument':
+			case 'match_post':
 			case 'match_post_argument':
+			case 'match_request':
 			case 'match_request_argument':
+			case 'match_cookie':
 			{
 				$list = $_GET;
 				
-				if ($check == 'match_post_argument')
+				if (($idx = strpos($check, '_argument')) !== false)
+				{
+					$check = substr($check, 0, $idx);
+				}
+				
+				if ($check == 'match_post')
 				{
 					$list = $_POST;
 				}
-				else if ($check == 'match_request_argument')
+				else if ($check == 'match_request')
 				{
 					$list = $_REQUEST;
+				}
+				else if ($check == 'match_cookie')
+				{
+					$list = $_COOKIE;
 				}
 				
 				$arg_name = strtolower($param_1);
@@ -1352,9 +1365,9 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, post_has_featured_image, match_query_argument', 'synved-shortcode'),
-			'param_1' => __('When the check is "user_can" param_1 specifies the user capability, when the check is "match_query_argument" param_1 contains the argument name.', 'synved-shortcode'),
-			'param_2' => __('When the check is "match_query_argument" param_2 contains the argument value.', 'synved-shortcode')
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, post_has_featured_image, match_query/request/post/cookie', 'synved-shortcode'),
+			'param_1' => __('When the check is "user_can" param_1 specifies the user capability, when the check is "match_query" param_1 contains the argument name.', 'synved-shortcode'),
+			'param_2' => __('When the check is "match_query/request/post/cookie" param_2 contains the argument value.', 'synved-shortcode')
 		)
 	));
 }

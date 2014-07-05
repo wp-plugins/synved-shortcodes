@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts and more!
+An amazing set of great elements: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 
 == Description ==
 
@@ -124,6 +124,10 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.19 =
+* Added extra conditional check match_cookie
+* Renamed conditional checks match_xxx_argument to match_xxx (backwards compatible)
 
 = 1.6.18 =
 * Added extra conditional checks match_post_argument and match_request_argument
