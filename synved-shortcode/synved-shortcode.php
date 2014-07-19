@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.19
+Version: 1.6.20
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060019);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.19');
+define('SYNVED_SHORTCODE_VERSION', 100060020);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.20');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -443,7 +443,7 @@ function synved_shortcode_do_section($atts, $content = null, $code = '')
 
 function synved_shortcode_do_button($atts, $content = null, $code = '')
 {
-	$atts_def = array('tip' => null, 'type' => 'normal', 'link' => null, 'icon' => null, 'icon2' => null, 'tag' => null);
+	$atts_def = array('tip' => null, 'type' => 'normal', 'link' => null, 'icon' => null, 'icon2' => null, 'tag' => null, 'target' => null);
 	$atts = shortcode_atts($atts_def, $atts);
 	
 	$type = $atts['type'];
@@ -451,6 +451,7 @@ function synved_shortcode_do_button($atts, $content = null, $code = '')
 	$icon = $atts['icon'];
 	$icon2 = $atts['icon2'];
 	$tag = trim($atts['tag']);
+	$target = trim($atts['target']);
 	$class = null;
 	$click = null;
 	
@@ -483,7 +484,14 @@ function synved_shortcode_do_button($atts, $content = null, $code = '')
 	
 	if ($link != null)
 	{
-		$click = ' onclick="window.location = \'' . esc_attr($link) . '\'"';
+		if ($target == null)
+		{
+			$click = ' onclick="window.location = \'' . esc_attr($link) . '\'"';
+		}
+		else
+		{
+			$click = ' onclick="window.open(\'' . esc_attr($link) . '\',\'' . esc_attr($target) . '\');"';
+		}
 	}
 	
 	if ($tag != null)

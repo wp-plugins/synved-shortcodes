@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.20 =
+* Add target attribute to button shortcode to allow opening links in new tabs/windows
+
 = 1.6.19 =
 * Added extra conditional check match_cookie
 * Renamed conditional checks match_xxx_argument to match_xxx (backwards compatible)
