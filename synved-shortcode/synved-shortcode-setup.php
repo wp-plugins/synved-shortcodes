@@ -439,6 +439,14 @@ function synved_shortcode_ajax_callback()
 <div class="help-tip">
 <b>[' . $name_alt . ']</b> --> ' . $tip . '
 </div>';
+							
+							if ($presets != null)
+							{
+								$help_html .= '
+<div class="presets-tip">
+' . __('Remember that you can also use the <strong>Preset</strong> selector at the top-right to see examples on how to use the shortcode.', 'synved-shortcode') . '
+</div>';
+							}
 
 							if ($args != null)
 							{

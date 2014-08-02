@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.21 =
+* Some minor adjustments
+
 = 1.6.20 =
 * Add target attribute to button shortcode to allow opening links in new tabs/windows
 

@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.20
+Version: 1.6.21
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060020);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.20');
+define('SYNVED_SHORTCODE_VERSION', 100060021);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.21');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1168,55 +1168,6 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 	}
 	
 	return null;
-}
-
-function synved_shortcode_condition_register($type, $default = null)
-{
-	$name = $type;
-	$type_label = synved_shortcode_item_label_create($type);
-	$cb = create_function('$atts, $content = null, $code = \'\'', 'return synved_shortcode_do_condition($atts, $content, $code, \'' . $type . '\');');
-	
-	synved_shortcode_add($type, $cb, false, __('Condition', 'synved-shortcode') . ' ' . $type_label);
-	
-	if ($default == null)
-	{
-		$default = '[%%_synved_name%% check="false"]';
-	}
-	
-	synved_shortcode_item_group_set($name, 'condition');
-	
-	if ($default != null)
-	{
-		synved_shortcode_item_default_set($name, $default);
-	}
-	
-	$type_label = str_replace(array('-', '_'), ' ', $type);
-	$desc = null;
-	
-	if (in_array(strtolower($type[0]), array('a', 'e', 'i', 'o', 'u')))
-	{
-		$desc .= __('an', 'synved-shortcode');
-	}
-	else
-	{
-		$desc .= __('a', 'synved-shortcode');
-	}
-	
-	$desc .= ' ' . $type_label . ' ' . __('condition', 'synved-shortcode');
-	
-	if ($type == 'plain')
-	{
-		$desc .= __('. The box has no special decorations or icons.', 'synved-shortcode');
-	}
-	
-	$help = array(
-		'tip' => __('Creates a message box displaying', 'synved-shortcode') . ' ' . $desc,
-		'parameters' => array(
-			'align' => __('Determines the text alignment. Can be either left, right or center.', 'synved-shortcode'), 
-		)
-	);
-	
-	synved_shortcode_item_help_set($name, $help);
 }
 
 function synved_shortcode_add($name, $cb, $internal = false, $label = null, $default = null)

@@ -71,6 +71,10 @@ color:#333;
 padding:7px;
 border-radius:8px;
 }
+.synved-shortcode-edit-ui-help .presets-tip {
+color:#333;
+padding:3px;
+}
 .synved-shortcode-edit-ui-help .synved-shortcode-help-item {
 margin-bottom:10px;
 }
