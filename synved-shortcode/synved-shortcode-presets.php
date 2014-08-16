@@ -169,6 +169,12 @@ This is the wrong place, please check the [%%_synved_name_link_post%% name="' . 
 
 	synved_shortcode_item_preset_add(
 'link_user',
+'[%%_synved_name%% id=' . get_current_user_id() . ' template="custom"]
+<a class="synved-link-anchor %%class%%" href="%%link%%"%%tip_attribute%%>%%title%% - %%abstract%%</a> 
+[/%%_synved_name%%]',
+'quick_link');
+	synved_shortcode_item_preset_add(
+'link_user',
 '[%%_synved_name%% id=' . get_current_user_id() . ' template="card-full"]',
 'author_card', array('group' => 'author_cards'));
 

@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.22 =
+* Added Quick Link preset for link_user shortcode
+
 = 1.6.21 =
 * Some minor adjustments
 
