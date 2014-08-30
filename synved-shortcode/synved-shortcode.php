@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.22
+Version: 1.6.23
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060022);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.22');
+define('SYNVED_SHORTCODE_VERSION', 100060023);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.23');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1116,6 +1116,42 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 			case 'post_has_featured_image':
 			{
 				$success = ($the_post && has_post_thumbnail($the_post->ID));
+				
+				break;
+			}
+			case 'post_meta_is':
+			{
+				$arg_name = strtolower($param_1);
+				
+				if ($arg_name != null)
+				{
+					$arg_value = $param_2;
+					
+					if ($the_post)
+					{
+						$post_meta = get_post_meta($the_post->ID, $arg_name, false);
+						
+						if ($post_meta != null)
+						{
+							if ($arg_value != null)
+							{
+								foreach ($post_meta as $meta_value)
+								{
+									if ($meta_value == $arg_value)
+									{
+										$success = true;
+										
+										break;
+									}
+								}
+							}
+							else
+							{
+								$success = true;
+							}
+						}
+					}
+				}
 				
 				break;
 			}
