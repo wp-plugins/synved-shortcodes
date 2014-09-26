@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.24 =
+* Small adjustments
+
 = 1.6.23 =
 * Added post_meta_is conditional check
 
