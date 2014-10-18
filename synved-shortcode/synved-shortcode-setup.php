@@ -64,7 +64,7 @@ function synved_shortcode_page_settings_tip($tip, $item)
 {
 	if (!function_exists('synved_social_version'))
 	{
-		$tip .= ' <div style="background:#f2f2f2;font-size:110%;color:#444;padding:10px 15px;"><b>' . __('Note', 'synved-shortcode') . '</b>: ' . __('The WordPress Shortcodes plugin is fully compatible with our free <a target="_blank" href="http://synved.com/wordpress-social-media-feather/">Social Media Feather</a> plugin!</span>', 'synved-shortcode') . '</div>';
+		$tip .= ' <div style="background:#f2f2f2;font-size:110%;color:#444;margin-right:270px;padding:10px 15px;"><b>' . __('Note', 'synved-shortcode') . '</b>: ' . sprintf(__('The WordPress Shortcodes plugin is fully compatible with our free <a target="_blank" href="%1$s">Social Media Feather</a> plugin! Social Media Feather makes social sharing and following a breeze! You can install it using your <a href="%2$s">plugin installer</a>.', 'synved-shortcode'), 'http://synved.com/wordpress-social-media-feather/', add_query_arg(array('tab' => 'search', 's' => 'social media feather'), admin_url('plugin-install.php'))) . '</div>';
 	}
 	
 	if (function_exists('synved_connect_support_social_follow_render'))
