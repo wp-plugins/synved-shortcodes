@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.26
+Version: 1.6.27
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060026);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.26');
+define('SYNVED_SHORTCODE_VERSION', 100060027);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.27');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1043,6 +1043,43 @@ function synved_shortcode_do_hide($atts, $content = null, $code = '', $type = nu
 	return '';
 }
 
+// compare values and first 1 is used to determine type
+function synved_shortcode_condition_check_value($value_1, $value_2)
+{
+	$type_1 = gettype($value_1);
+	$type_2 = gettype($value_2);
+	
+	if ($type_1 == $type_2)
+	{
+		if ($value_1 == $value_2)
+		{
+			return true;
+		}		
+	}
+	
+	if ($type_1 == 'boolean')
+	{
+		if (is_string($value_2))
+		{
+			if ($value_1)
+			{
+				return (strtolower($value_2) == 'true');
+			}
+			else
+			{
+				return (strtolower($value_2) == 'false');
+			}
+		}
+	}
+
+	if ($value_1 == $value_2)
+	{
+		return true;
+	}		
+	
+	return false;
+}
+
 function synved_shortcode_do_condition($atts, $content = null, $code = '', $type = null)
 {
 	$atts_def = array('check' => '', 'param_1' => '', 'param_2' => '');
@@ -1138,7 +1175,7 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 							{
 								foreach ($post_meta as $meta_value)
 								{
-									if ($meta_value == $arg_value)
+									if (synved_shortcode_condition_check_value($meta_value, $arg_value))
 									{
 										$success = true;
 										
@@ -1174,12 +1211,43 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 							{
 								foreach ($user_meta as $meta_value)
 								{
-									if ($meta_value == $arg_value)
+									if (synved_shortcode_condition_check_value($meta_value, $arg_value))
 									{
 										$success = true;
 										
 										break;
 									}
+								}
+							}
+							else
+							{
+								$success = true;
+							}
+						}
+					}
+				}
+				
+				break;
+			}
+			case 'user_option_is':
+			{
+				$arg_name = strtolower($param_1);
+				
+				if ($arg_name != null)
+				{
+					$arg_value = $param_2;
+					
+					if ($the_user && $the_user->ID > 0)
+					{
+						$user_option = get_user_option($arg_name, $the_user->ID);
+						
+						if ($user_option != null)
+						{
+							if ($arg_value != null)
+							{
+								if (synved_shortcode_condition_check_value($user_option, $arg_value))
+								{
+									$success = true;
 								}
 							}
 							else
@@ -1394,9 +1462,9 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, post_has_featured_image, post_meta_is, user_meta_is, match_query/request/post/cookie', 'synved-shortcode'),
-			'param_1' => __('When the check is "user_can" param_1 specifies the user capability, when the check is "post_meta_is" or "user_meta_is" it specifies the meta name, when "match_query" it contains the argument name.', 'synved-shortcode'),
-			'param_2' => __('When the check is "post_meta_is" or "user_meta_is" param_1 specifies the meta value (if any), when "match_query/request/post/cookie" it contains the argument value.', 'synved-shortcode')
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, post_has_featured_image, post_meta_is, user_meta_is, user_option_is, match_query/request/post/cookie', 'synved-shortcode'),
+			'param_1' => __('When the check is "user_can" param_1 specifies the user capability, when the check is "post_meta_is", "user_meta_is" or "user_option_is" it specifies the meta name, when "match_query" it contains the argument name.', 'synved-shortcode'),
+			'param_2' => __('When the check is "post_meta_is", "user_meta_is" or "user_option_is" param_1 specifies the meta value (if any), when "match_query/request/post/cookie" it contains the argument value.', 'synved-shortcode')
 		)
 	));
 }
