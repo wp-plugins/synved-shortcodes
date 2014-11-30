@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.27
+Version: 1.6.28
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060027);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.27');
+define('SYNVED_SHORTCODE_VERSION', 100060028);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.28');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1188,6 +1188,22 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 								$success = true;
 							}
 						}
+					}
+				}
+				
+				break;
+			}
+			case 'post_format_is':
+			{
+				$arg_value = $param_1;
+				
+				if ($the_post && $the_post->ID > 0)
+				{
+					$post_format = get_post_format($the_post->ID);
+					
+					if ($post_format == $arg_value || strcasecmp($post_format, $arg_value) == 0)
+					{
+						$success = true;
 					}
 				}
 				

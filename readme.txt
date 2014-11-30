@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.28 =
+* Added `post_format_is` conditional check
+
 = 1.6.27 =
 * Added `user_option_is` conditional check
 * Small adjustments to conditional value checking, now supports bool conversion
