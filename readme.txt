@@ -3,7 +3,7 @@ Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
 Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, permalink, permalinks, time, author, vcard, box, boxes, icons, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks, filter, conditionals, if, condition, check
 Requires at least: 3.1
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.29 =
+* Added `post_info_is` conditional check
 
 = 1.6.28 =
 * Added `post_format_is` conditional check
