@@ -125,6 +125,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.31 =
+* Added `is_category` conditional check
+
 = 1.6.30 =
 * Added `is_tag` conditional check
 
