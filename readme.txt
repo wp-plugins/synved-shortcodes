@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-An amazing set of great elements: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, conditionals and more!
+An amazing set of great shortcodes: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, conditionals and more!
 
 == Description ==
 
@@ -21,7 +21,7 @@ Learn how you can use WordPress Shortcodes to [easily create import / export saf
 
 If you want to take it to the next level and hugely improve the appearance of the elements and make them look more professional, you might want to consider purchasing the [SlickPanel skin](http://synved.com/product/wordpress-shortcodes-slickpanel-skin/ "Transform the look of many elements in the Shortcodes plugin!").
 
-There are many different kinds of elements that cover for all your requirements. These include functionality for *User Interface creation*, *Layout management*, *Lists*, *Buttons*, *Message boxes*, *smart links* to easily link contents on your site without using full URLs but with IDs or names and a bunch of other useful tools such as the ability of adding hidden content in posts/pages, useful for making notes or comments.
+There are many different kinds of elements that cover all your requirements. These include functionality for *User Interface creation*, *Layout management*, *Lists*, *Buttons*, *Message boxes*, *smart links* to easily link contents on your site without using full URLs but with IDs or names and a bunch of other useful tools such as the ability of adding hidden content in posts/pages, useful for making notes or comments.
 
 Just use the intuitive shortcode editor to create a message box, error box or warning message on your site. Or create multi-column layouts, a fancy button, a highly stylized link card, a list of items with icons (like a feature list), or combine multiple nested shortcodes to create for instance a list of links or a list of buttons and much more.
 
@@ -36,16 +36,16 @@ The plugin also offers conditional shortcodes that allow to render content only 
 * Create tabs, sections/accordions, layout, lists, links, buttons and more!
 * Tabs are **SEO friendly** and work flawlessly without JavaScript!
 * Fully WordPress compliant, using latest standards
-* Quick and easy to use shortcode editor **with instant previews**
-* Shortcode editor allows for easy insertion in posts/pages!
+* Quick and easy to use shortcodes editor **with instant previews**
+* Shortcodes editor allows for easy insertion in posts/pages!
 * The shortcode editor has full support for default presets and you can get [many extra useful presets](http://synved.com/product/wordpress-shortcodes-extra-presets/)
 * Layout shortcodes allow for tight content organization
 * Link shortcodes make importing and exporting content across sites much more reliable
 * Links support a simple to use but *powerful template system* to tweak what is displayed and how it looks
 * The custom template system makes it extremely easy to create custom **author and post cards** with thumbnails
-* Shortcode to hide content for adding comments and notes to posts and pages
+* Shortcodes to hide content for adding comments and notes to posts and pages
 * Many parameters for ultimate customization
-* All parameters are documented in detail in the shortcode editor
+* All parameters are documented in detail in the shortcodes editor
 * **Conditional** shortcodes to show/hide content based on specific checks or conditions
 * Many useful lightweight icons provided built-in
 * Easy to adjust the look of shortcodes with built-in custom CSS field
