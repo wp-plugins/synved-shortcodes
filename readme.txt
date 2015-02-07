@@ -88,6 +88,9 @@ The following will create a list of links to various kinds of content on your si
   [item][link_media title="Ice Pathway" /][/item]
 [/list]`
 
+The following will create **conditional content** only displayed when the post has a specific *tag* of "myposttag":
+`[condition check="post_has_tag" param_1="myposttag"]<p>Test POST has TAG</p>[/condition]`
+
 = Related Links: =
 
 * [WordPress Shortcodes Official Page](http://synved.com/wordpress-shortcodes/ "WordPress Shortcodes – beautiful elements to spice up your site")
@@ -124,6 +127,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.32 =
+* Added `post_has_tag` conditional check
 
 = 1.6.31 =
 * Added `is_category` conditional check
