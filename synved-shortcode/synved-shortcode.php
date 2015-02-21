@@ -3,7 +3,7 @@
 Module Name: Synved Shortcode
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.32
+Version: 1.6.33
 Author URI: http://synved.com/
 License: GPLv2
 
@@ -18,8 +18,8 @@ In no event shall Synved Ltd. be liable to you or any third party for any direct
 
 
 define('SYNVED_SHORTCODE_LOADED', true);
-define('SYNVED_SHORTCODE_VERSION', 100060032);
-define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.32');
+define('SYNVED_SHORTCODE_VERSION', 100060033);
+define('SYNVED_SHORTCODE_VERSION_STRING', '1.6.33');
 
 define('SYNVED_SHORTCODE_ADDON_PATH', str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, dirname(__FILE__) . '/addons'));
 
@@ -1182,6 +1182,14 @@ function synved_shortcode_do_condition($atts, $content = null, $code = '', $type
 				
 				break;
 			}
+			case 'post_has_category':
+			{
+				$category = $param_1;
+				
+				$success = ($the_post && has_category($category, $the_post));
+				
+				break;
+			}
 			case 'post_meta_is':
 			{
 				$arg_name = strtolower($param_1);
@@ -1586,7 +1594,7 @@ Section Content 2.
 	synved_shortcode_item_help_set('condition', array(
 		'tip' => __('Creates a condition block which will only add its contents to the page if the condition is true.', 'synved-shortcode'),
 		'parameters' => array(
-			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, is_tag, is_category, post_has_featured_image, post_has_tag, post_meta_is, post_format_is, post_info_is, user_meta_is, user_option_is, match_query/request/post/cookie', 'synved-shortcode'),
+			'check' => __('Determines the condition to check for. Possible values are is_user_logged_in, is_user_admin, is_user_editor, is_user_author, user_can, is_post_protected, is_post_sticky, is_tag, is_category, post_has_featured_image, post_has_tag, post_has_category, post_meta_is, post_format_is, post_info_is, user_meta_is, user_option_is, match_query/request/post/cookie', 'synved-shortcode'),
 			'param_1' => __('When the check is "user_can" param_1 specifies the user capability, when the check is "post_meta_is", "post_info_is", "user_meta_is" or "user_option_is" it specifies the property name, when "match_query/request/post/cookie" it contains the argument name.', 'synved-shortcode'),
 			'param_2' => __('When the check is "post_meta_is", "post_info_is", "user_meta_is" or "user_option_is" param_1 specifies the property value (if any), when "match_query/request/post/cookie" it contains the argument value.', 'synved-shortcode')
 		)
