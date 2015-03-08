@@ -4,7 +4,7 @@ Plugin Name: WordPress Shortcodes
 Plugin URI: http://synved.com/wordpress-shortcodes/
 Description: An amazing free set of great elements for your site: SEO-ready tabs, sections, buttons, links to any content, author cards, lists, layouts, *conditionals* and more!
 Author: Synved
-Version: 1.6.33
+Version: 1.6.34
 Author URI: http://synved.com/
 
 LEGAL STATEMENTS

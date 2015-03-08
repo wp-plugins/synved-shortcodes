@@ -128,6 +128,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 
 == Changelog ==
 
+= 1.6.34 =
+* Added `post_has_term` conditional check
+
 = 1.6.33 =
 * Added `post_has_category` conditional check
 
