@@ -79,7 +79,7 @@ function synved_shortcode_page_render_fragment($fragment, $out, $params)
 {
 	if ($fragment == 'page-submit-tail')
 	{
-		$out .= '<div style="clear:both; margin-top: -12px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review! Otherwise, only users with negative experiences will review, decreasing the rating and hindering future development.</a></div>';
+		$out .= '<div style="clear:both; margin-top: -12px;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform" style="font-size:120%"><b>We need your help!</b> If you like the plugin, you can help us by leaving a 5-stars review! It only takes a minute and it\'s free!</a></a></div>';
 	}
 	
 	return $out;
@@ -732,7 +732,7 @@ function synved_shortcode_ajax_callback()
 				$response_html .= '
 </div>';
 				
-				$response_html .= '<div style="clear:both;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform">If you like the plugin, you can help us by leaving a 5 stars review! Otherwise, only users with negative experiences will review, decreasing the rating and hindering future development.</a></div>';
+				$response_html .= '<div style="clear:both; margin: 10px 0 60px 0;"><a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/synved-shortcodes?rate=5#postform" style="font-size:120%"><b>We need your help!</b> If you like the plugin, you can help us by leaving a 5-stars review! It only takes a minute and it\'s free!</a></a></div>';
 
 				$response_html .= '
 </div>';
