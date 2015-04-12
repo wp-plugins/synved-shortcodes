@@ -91,6 +91,12 @@ The following will create a list of links to various kinds of content on your si
 The following will create **conditional content** only displayed when the post has a specific *tag* of "myposttag":
 `[condition check="post_has_tag" param_1="myposttag"]<p>Test POST has TAG</p>[/condition]`
 
+The following will create content conditionally shown only when the post is a specific *format* of "mypostformat":
+`[condition check="post_format_is" param_1="mypostformat"]<p>Test post format</p>[/condition]`
+
+This conditional shortcode will check for the **post info** of "review_status" is set to "reviewed":
+`[condition check="post_info_is" param_1="review_status" param_2="reviewed"]<p>This post has reviews</p>[/condition]`
+
 = Related Links: =
 
 * [WordPress Shortcodes Official Page](http://synved.com/wordpress-shortcodes/ "WordPress Shortcodes – beautiful elements to spice up your site")
@@ -127,6 +133,9 @@ Have a look at the [Stripefolio theme demo](http://wpdemo.synved.com/stripefolio
 10. Another example of the Shortcodes Editor showing a partial list of some of the shortcodes (using the new interface)
 
 == Changelog ==
+
+= 1.6.36 =
+* Fixed addon installer and added some documentation
 
 = 1.6.35 =
 * Adjusted descriptions and comments
