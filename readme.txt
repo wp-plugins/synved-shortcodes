@@ -88,6 +88,21 @@ The following will create a list of links to various kinds of content on your si
   [item][link_media title="Ice Pathway" /][/item]
 [/list]`
 
+The following will create a multi-column layout with a table in each column:
+`[full]
+	[half flow="start" extend="yes"]
+		<table border="1">
+		<tr><td>position 1:1</td><td>position 1:2</td></tr>
+		<tr><td>position 2:1</td><td>position 2:2</td></tr>
+		</table>
+	[/half]
+	[half flow="end" extend="yes"]
+		<table border="1"><tr><td>position 1:1</td><td>position 1:2</td></tr>
+		<tr><td>position 2:1</td><td>position 2:2</td></tr>
+		</table>
+	[/half]
+[/full]`
+
 The following will create **conditional content** only displayed when the post has a specific *tag* of "myposttag":
 `[condition check="post_has_tag" param_1="myposttag"]<p>Test POST has TAG</p>[/condition]`
 
