@@ -77,7 +77,7 @@ Section Content 2.
 [/section]
 [/sections]`
 
-The following will create a list of links to various kinds of content on your site:
+The following shortcode will create a list of links to various kinds of content on your site:
 `[list icon=link]
   [item][link_post id=82 /][/item]
   [item][link_post id=66 /][/item]
