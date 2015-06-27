@@ -27,7 +27,7 @@ Just use the intuitive **shortcode editor** to create a message box, error box o
 
 The shortcode editor presents a very intuitive and easy to use interface, with many built-in presets that make inserting many commonly needed default shortcodes in your posts/pages a breeze! If you want you can also get [over 30+ extra useful amazing presets](http://synved.com/product/wordpress-shortcodes-extra-presets/) for covering almost all needs.
 
-The plugin offers all common jQuery UI functionality as well like jQuery UI Accordions, JQuery UI Tabs, jQuery UI buttons and so on. The UI tabs provide many different features including full SEO compatible selection of active tab without need for JavaScript.
+The plugin offers all common jQuery UI functionality as well like jQuery UI Accordions (called *sections* inside WordPress Shortcodes), JQuery UI Tabs, jQuery UI buttons and so on. The UI tabs provide many different features including full SEO compatible selection of active tab without need for JavaScript.
 
 The plugin also offers conditional shortcodes that allow to render content only based on certain conditions, such as only if the user is logged in or if the user is an administrator, an editor, author or has a custom capability or if the current post is password protected or if it has a featured image (post thumbnail).
 
