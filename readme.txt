@@ -1,7 +1,7 @@
 === WordPress Shortcodes ===
 Contributors: Synved
 Donate link: http://synved.com/wordpress-shortcodes/
-Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, urls, permalink, permalinks, time, author, vcard, box, boxes, icons, images, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, taxonomies, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks, filter, conditionals, if, condition, conditional shortcode, check, sidebar, user meta
+Tags: AJAX, shortcode, shortcodes, tabs, UI, sections, accordions, layout, column, columns, link, links, url, urls, permalink, permalinks, time, author, vcard, box, boxes, icons, images, button, buttons, free, content, plugin, image, edit, manage, Post, posts, image, thumbnail, categories, category, tag, tags, Taxonomy, taxonomies, user, template, Style, seo, page, pages, widget, CSS, editor, jquery, list, media, profile, shortlinks, filter, conditionals, if, condition, conditional shortcode, check, user meta, sidebar
 Requires at least: 3.1
 Tested up to: 4.4
 Stable tag: trunk
